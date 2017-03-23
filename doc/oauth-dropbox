@@ -1,0 +1,31 @@
+Step1: 
+https://api.dropbox.com:443/1/oauth/request_token?locale=en
+setHeader("Authorization", OAuth oauth_version="1.0", oauth_signature_method="PLAINTEXT", oauth_consumer_key="d15asees4r8bw3i", oauth_signature="lkcyv9yf7aybs04&")
+
+Response must contain this:
+
+{oauth_token=sscca3qdjxv14za, oauth_token_secret=7y3yrbynx6wp5ff}
+{key="sscca3qdjxv14za", secret="7y3yrbynx6wp5ff"}
+
+Build the authorization url:
+
+https://www.dropbox.com:443/1/oauth/authorize?oauth_token=sscca3qdjxv14za&locale=en
+
+User must go to this url and authorize the application.
+
+
+Now go to the following url:
+
+https://api.dropbox.com:443/1/oauth/access_token?locale=en
+Header: [Authorization: OAuth oauth_version="1.0", oauth_signature_method="PLAINTEXT", oauth_consumer_key="d15asees4r8bw3i", oauth_token="sscca3qdjxv14za", oauth_signature="lkcyv9yf7aybs04&7y3yrbynx6wp5ff"]
+The response must contain:
+{uid=79237988, oauth_token=rrtm2dma80yrn6r, oauth_token_secret=ffdtsgihcxcoz0s}
+
+Save the uid and the auth tokens above
+
+Now you are prepared to connect to dropbox:
+
+
+https://api.dropbox.com:443/1/copy_ref/dropbox/tmp?locale=en
+[Authorization: OAuth oauth_version="1.0", oauth_signature_method="PLAINTEXT", oauth_consumer_key="d15asees4r8bw3i", oauth_token="rrtm2dma80yrn6r", oauth_signature="lkcyv9yf7aybs04&ffdtsgihcxcoz0s"]
+{"links":{"79237988":["rrtm2dma80yrn6r","ffdtsgihcxcoz0s"]},"app_key":["d15asees4r8bw3i","lkcyv9yf7aybs04"]}

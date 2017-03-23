@@ -1,0 +1,11 @@
+Connect to dropbox example - http://stackoverflow.com/questions/10755127/sending-request-to-dropbox
+
+String result= URLEncoder.encode(oauth_token , "UTF-8")+"&";     
+        PostMethod get = new PostMethod("https://api.dropbox.com/1/oauth/request_token");
+        get.addParameter("oauth_consumer_key", "fm5qq8panuw0rnm" );
+        get.addParameter("oauth_nonce",String.valueOf(nonce));
+        get.addParameter("oauth_signature_method", "PLAINTEXT");
+        get.addParameter("oauth_signature", result);
+        get.addParameter("oauth_timestamp",String.valueOf(timestamp.getTime()/1000));
+        get.addParameter("oauth_token", "z3d00yk6qwh2eui");
+        int status= client.executeMethod(get);  

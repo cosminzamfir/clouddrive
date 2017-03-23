@@ -1,0 +1,883 @@
+/* ================ Core CSS =================== */
+/*
+ * This CSS is shared across both the web app and marketing site.
+ * See documentation at <you>.inside-box.net/documentation/index.
+ * Always check the documentation before adding CSS to this file.  All CSS added
+ * should be component-based, reusable, and not specific to a particular element.
+ *
+ * NOTE: Avoid changing anything here to fix just web app or marketing display.
+ * If you change CSS here, you will affect display on the other portion of the site.
+ *
+ * Browser-specific CSS
+ * @TODO: remove this style of IE-hack
+ * rule: value -> applied in all browsers
+ * *rule: value -> applied to IE6 and IE7 only
+ * _rule: value -> applied to IE6 only
+ */
+/* ================ Libraries ================== */
+/*
+ * Copyright (c) 2008, Yahoo! Inc. All rights reserved.
+ * Code licensed under the BSD License:
+ * http://developer.yahoo.net/yui/license.txt
+ * version: 3.0.0pr2 (lines 9-11)
+ * */
+/* Reset */
+html {
+	color: #000;
+	background: #FFF;
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+fieldset,img {
+	border: 0;
+}
+address, caption, cite, code, dfn, em, strong, th, var {
+	font-style: normal;
+	font-weight:normal;
+}
+li {
+	list-style: none;
+	border:  0;
+}
+.ie6 li {
+	position: relative; /* Positioning all LIs relative is extremely slow in IE, including IE 8. We should use it for IE 6 only to fix certain IE 6 bugs. */
+}
+caption, th {
+	text-align: left;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+q:before, q:after {
+	content:'';
+}
+abbr, acronym {
+	border: 0;
+	font-variant: normal;
+}
+sup {
+	vertical-align: text-top;
+}
+sub {
+	vertical-align: text-bottom;
+}
+input, textarea, select {
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	outline: none;
+}
+input, textarea, select {
+	*font-size: 100%;
+}
+legend {
+	color: #000;
+}
+/* Fonts */
+body {
+	font: 13px/1.231 arial, helvetica, clean, sans-serif;
+}
+body.lte_ie7 {
+	font-size: small;
+	font: x-small;
+}
+select, input, button, textarea {
+	font: 99% arial, helvetica, clean, sans-serif;
+}
+button::-moz-focus-inner {
+	border: 0;
+}
+table {
+	font-size: inherit;
+	font: 100%;
+}
+pre, code, kbd, samp, tt {
+	font-family: monospace;
+	*font-size: 108%;
+	line-height: 100%;
+}
+
+/* ================ Grids ================== */
+.line:after, .last_unit:after {
+	clear: both;
+	display: block;
+	visibility: hidden;
+	overflow: hidden;
+	height: 0 !important;
+	line-height: 0;
+	font-size: xx-large;
+	content: " x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";
+}
+.lte_ie7 .line {
+	zoom: 1;
+}
+.unit, .unit_ext {
+	zoom: 1;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.unit {
+	float: left;
+}
+.unit_ext {
+	float: right;
+}
+
+.size1of1,.size2of2, .size3of3, .size4of4, .size5of5, .size6of6 { float: none; }
+.size1of2, .size2of4 { width: 50%; }
+.size1of3 { width: 33.33333%; }
+.size2of3 { width: 66.66666%; }
+.size1of4 { width: 25%; }
+.size3of4 { width: 75%; }
+.size1of5 { width: 20%; }
+.size2of5 { width: 40%; }
+.size3of5 { width: 60%; }
+.size4of5 { width: 80%; }
+.size1of6 { width: 16.66666%; }
+.size5of6 { width: 83.33333%; }
+
+.last_unit {
+	display: table-cell;
+	float: none;
+	width: auto;
+	*display: block;
+	*zoom: 1;
+	_position: relative;
+	_left: -3px;
+	_margin-right: -3px;
+}
+
+/* ================ Media ================== */
+.media {
+	zoom: 1;
+	position: relative;
+}
+.media:after, .bd:after {
+	clear: both;
+	display: block;
+	visibility: hidden;
+	overflow: hidden;
+	height:0 !important;
+	line-height: 0;
+	font-size: xx-large;
+	content: " x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";
+}
+.media .bd {
+	display: table-cell;
+	zoom: 1;
+}
+/* @TODO: This is very expensive because it looks for every first-child on the page, and then see if they are the direct children of a bd. Come up with a better way to do. */
+.media .bd > :first-child {
+	margin-top: 0;
+}
+.media .bd > :last-child {
+	margin-bottom: 0;
+}
+.img {
+	float: left;
+	margin-right: 10px;
+}
+.img img {
+	display: block;
+}
+.img_ext {
+	float: right;
+	margin-left: 10px;
+}
+.clear, .clearfix {
+	clear: both;
+}
+
+/* ================ Spacing ================== */
+/**
+ * Spacing classes
+ * Should be used to modify the default spacing between objects (not between nodes of the same object)
+ * Please use judiciously. You want to be using defaults most of the time, these are exceptions!
+ * <type><location><size>
+ */
+ /* ====== Default spacing ====== */
+h1, h2, h3, h4, h5, h6, ul, ol, dl, p, blockquote, .media {
+	margin: 5px 0;
+}
+pre {
+	margin: 10px 0;
+}
+
+.body h2:first-child, .body h3:first-child, .body  h4:first-child,
+.body h5:first-child, .body h6:first-child, .body ul:first-child,
+.body ol:first-child, .body dl:first-child, .body p:first-child,
+.body blockquote:first-child, .body .media:first-child {
+	margin-top: 0;
+}
+
+.body h2:last-child, .body h3:last-child, .body h4:last-child,
+.body h5:last-child, .body h6:last-child, .body ul:last-child,
+.body ol:last-child,.body dl:last-child, .body p:last-child,
+.body blockquote:last-child, .body .media:last-child {
+	margin-bottom: 0;
+}
+.pan { padding: 0 !important }
+.pas { padding: 5px !important }
+.pam { padding: 10px !important }
+.pal { padding: 20px !important }
+.ptn { padding-top: 0 !important }
+.pts { padding-top: 5px !important }
+.ptm { padding-top: 10px !important }
+.ptl { padding-top: 20px !important }
+.prn { padding-right: 0 !important }
+.prs { padding-right: 5px !important }
+.prm { padding-right: 10px !important }
+.prl { padding-right: 20px !important }
+.pbn { padding-bottom: 0 !important }
+.pbs { padding-bottom: 5px !important }
+.pbm { padding-bottom: 10px !important }
+.pbl { padding-bottom: 20px !important }
+.pln { padding-left: 0 !important }
+.pls { padding-left: 5px !important }
+.plm { padding-left: 10px !important }
+.pll { padding-left: 20px !important }
+.phn { padding-left: 0 !important; padding-right: 0 !important }
+.phs { padding-left: 5px !important; padding-right: 5px !important }
+.phm { padding-left: 10px !important; padding-right: 10px !important }
+.phl { padding-left: 20px !important; padding-right: 20px !important }
+.pvn { padding-top: 0 !important; padding-bottom: 0 !important }
+.pvs { padding-top: 5px !important; padding-bottom: 5px !important }
+.pvm { padding-top: 10px !important; padding-bottom: 10px !important }
+.pvl { padding-top: 20px !important; padding-bottom: 20px !important }
+.man { margin: 0 !important }
+.mas { margin: 5px !important }
+.mam { margin: 10px !important }
+.mal { margin: 20px !important }
+.mtn { margin-top: 0 !important }
+.mts { margin-top: 5px !important }
+.mtm { margin-top: 10px !important }
+.mtl { margin-top: 20px !important }
+.mrn { margin-right: 0 !important }
+.mrs { margin-right: 5px !important }
+.mrm { margin-right: 10px !important }
+.mrl { margin-right: 20px !important }
+.mbn { margin-bottom: 0 !important }
+.mbs { margin-bottom: 5px !important }
+.mbm { margin-bottom: 10px !important }
+.mbl { margin-bottom: 20px !important }
+.mln { margin-left: 0 !important }
+.mls { margin-left: 5px !important }
+.mlm { margin-left: 10px !important }
+.mll { margin-left: 20px !important }
+.mhn { margin-left: 0 !important; margin-right: 0 !important }
+.mhs { margin-left: 5px !important; margin-right: 5px !important }
+.mhm { margin-left: 10px !important; margin-right: 10px !important }
+.mhl { margin-left: 20px !important; margin-right: 20px !important }
+.mvn { margin-top: 0 !important; margin-bottom: 0 !important }
+.mvs { margin-top: 5px !important; margin-bottom: 5px !important }
+.mvm { margin-top: 10px !important; margin-bottom: 10px !important }
+.mvl { margin-top: 20px !important; margin-bottom: 20px !important }
+
+/* ================ Table ================== */
+/**
+ * Data Table
+ * Allows you to align various table cells so that the alignment class can be placed on either the table, table row, or table cell
+ * Cell takes precedence over table row and table
+ * Table row takes precedence over table
+ */
+.data {
+	position: relative;
+	zoom: 1;
+	vertical-align: top;
+	text-align: left;
+}
+.data table {
+	width: 100%;
+	table-layout: fixed;
+}
+/* horizontal alignment */
+.txt_c, table .txt_c td, table .txt_c th, .data .txt_c th, .data .txt_c td { text-align: center; }
+.txt_l, table .txt_l td, table .txt_l th, .data .txt_l th, .data .txt_l td { text-align: left; }
+.txt_r, table .txt_r td, table .txt_r th, .data .txt_r th, .data .txt_r td { text-align: right; }
+/* vertical alignment */
+.txt_t, table .txt_t td, table .txt_t th, .data .txt_t th, .data .txt_t td { vertical-align: top; }
+.txt_b, table .txt_b td, table .txt_b th, .data .txt_b th, .data .txt_b td { vertical-align: bottom; }
+.txt_m, table .txt_m td, table .txt_m th, .data .txt_m th, .data .txt_m td { vertical-align: middle; }
+
+/* ================ Text ================== */
+.date {
+	color: #808080;
+	font-size: 11px;
+}
+.note {
+	color: #808080;
+	font-style: italic;
+}
+.faded {
+	color: #999;
+}
+.legal {
+	font-size: 11px;
+}
+.spaced {
+	line-height: 18px;
+}
+strong, .strong{
+	font-weight: bold;
+}
+em {
+	font-style: italic;
+}
+.medium
+{
+	font-size: 14px;
+}
+.large
+{
+	font-size: 16px;
+}
+
+/* ================ Headings ================== */
+/* Style rules: initial caps all important words */
+/* Use strong for single-word inline headings, like "Tip: ..." */
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
+	font-weight: bold;
+	border: 0;
+	padding-bottom: 0;
+}
+h1, .h1 {
+	margin: 10px 0;
+	color: #333;
+	font-size: 24px;
+}
+h2, .h2 {
+	margin: 10px 0;
+	color: #333;
+	font-size: 19px;
+}
+h3, .h3 {
+	margin: 5px 0;
+	color: #333;
+	font-size: 17px;
+}
+h4, .h4 {
+	margin: 5px 0;
+	color: #333;
+	font-size: 14px;
+}
+h5, .h5 {
+	margin: 5px 0;
+	color: #111;
+	font-size: 13px;
+}
+h6, .h6 {
+	margin: 10px 0;
+	color: #666666;
+	font-size: 12px;
+	font-weight: bold;
+	border-bottom: 1px solid #E8E8E8;
+	padding-bottom: 5px;
+}
+
+/* ================ Mixins ================== */
+.break {
+	word-wrap: break-word;
+}
+.no_break {
+	word-wrap: nowrap;
+}
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	vertical-align: top; /* This fixes several issues in IE 8 and 9, and does not seem to affect other browsers. */
+	text-overflow: ellipsis;
+	display: block;
+	-o-text-overflow: ellipsis;
+	-ms-text-overflow: ellipsis;
+	_width: 100%;
+	/* -moz-binding is attached in templates since it isn't a resource */
+}
+a.ellipsis, span.ellipsis, em.ellipsis {
+	/*these inline elements were made block-level in the ellipsis class. they need to behave like inline. inline-block seems to work better than float: left*/
+	display: inline-block;
+	padding-bottom: 1px;
+}
+.lte_ie7 a.ellipsis, .lte_ie7 span.ellipsis, .lte_ie7 em.ellipsis {
+	/*inline-block cross-browser tricks*/
+	zoom: 1;
+	display: inline;
+}
+.single_line {
+	white-space: nowrap;
+	overflow: hidden;
+}
+.scrollable {
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: relative; /* Necessary for IE so content stays in container */
+}
+.center {
+	margin-right: auto;
+	margin-left: auto;
+}
+.center_contents {
+	text-align: center;
+}
+.lighter {
+	font-weight: lighter;
+}
+.clickable {
+	cursor: pointer;
+}
+
+/* ================ Lists ================== */
+/* ----- simple list (no bullets) ----- */
+.simple_list {
+	margin: 10px 0;
+}
+
+/* ----- basic vertical list ----- */
+.basic_list {
+	margin: 10px 0;
+}
+.basic_list > li {
+	padding: .2em 0;
+}
+.basic_list_sm > li {
+	margin: 5px 0;
+}
+.basic_list_med > li {
+	margin: 10px 0;
+}
+.basic_list_lg > li {
+	margin: 20px 0;
+}
+
+/* ----- list with bullets ------ */
+.bulleted_list > li {
+	list-style: disc inside none;
+}
+.bulleted_list_hanging li{
+	list-style: outside;
+	margin-left: 13px;
+}
+
+/* ----- inline list ----- */
+.inline_list > li {
+	display: inline-block;
+	padding-right: .5em;
+	vertical-align: top;
+}
+.lte_ie7 .inline_list li {
+	display: inline;
+	zoom: 1;
+	padding-right: .5em;
+	vertical-align: top;
+}
+/* IE 6 Needs divs inside of inline_list lis to be inline too */
+.ie6 .inline_list li div {
+	display: inline;
+	position: relative;
+}
+.ie .inline_list li div {
+	zoom: 1;
+}
+
+/* ----- image within a list ----- */
+.list_img {
+	display: inline-block;
+}
+/* @TODO(dtong) do .list_img.sprite_16x16 instead and evaluate if that would badly affect all the list_img elements */
+.list_img_icon_16 {
+	position: relative;
+	/* necessary because list item height is 16px while text inside has line-height of 14px, so 16x16 icons wouldnt align well with text in a list. */
+	top: -2px;
+}
+.lte_ie7 .list_img {
+	display: inline;
+	zoom: 1;
+}
+
+/* ----- inline list extended ----- */
+.inline_list_ext {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+.inline_list_ext li {
+	display: inline;
+}
+.lte_ie7 .inline_list_ext > li {
+	padding-right: 2px;
+}
+.inline_list_ext > li:after {
+	content: "\00B7";
+	padding: 0 3px 0 3px;
+}
+.lte_ie7 .inline_list_ext li {
+	margin-right: 6px; /* IE 6 and 7 do not show the dot between li items, so we need spacing  */
+}
+.lte_ie7 .inline_list_ext * li {
+	margin-right: 0; /* undo margin so the rule above only applies to children  */
+}
+.inline_list_ext li:last-child:after {
+	content: "" !important;
+}
+/* need to repeat this line for IE 8 because it does not recognize :last-child and it ignores the whole line */
+.inline_list_ext .last-child:after {
+	content: "" !important;
+}
+
+/* ----- inline list extended line ---- (line inline_list_ext, but with lines between items instead of dots) */
+.inline_list_ext_line li {
+	border-right: 1px solid #E2E2E2; 
+}
+.inline_list_ext_line li:last-child,
+.inline_list_ext_line li.last-child
+{
+	border-right:0px;
+}
+
+/* ----- extended list ----- */
+.list_ext {
+	cursor: pointer;
+}
+.list_ext .item_expansion {
+	border-top: 0;
+	padding: 0;
+}
+.list_ext > li.hover {
+	background-color: #EFF5F9; /* Custom Branding */
+}
+.list_ext > li .selected {
+	background-color: #CBE2F1; /* Custom Branding */
+}
+.ie6 .list_ext li.hover {
+	background-color: #EFF5F9; /* Custom Branding */
+}
+.ie6 .list_ext li.selected {
+	background-color: #CBE2F1; /* Custom Branding */
+}
+.list_ext > li,
+.list_separated > li {
+	/* position: relative makes IE painfully slow... do not do it!  */
+	border-top: 1px solid #E9E9E9;
+	padding: 8px 5px;
+	zoom: 1;
+}
+/* ie6 fix since ie6 doesn't do > */
+.ie6 .list_ext li,
+.ie6 .list_separated li {
+	border-top: 1px solid #E9E9E9;
+	padding: 8px 5px;
+}
+/* We only want the li styling to apply to immediate children, so
+ * we undo it here
+ */
+.ie6 .list_ext * li {
+	border: 0 none transparent;
+	padding: 0;
+}
+.list_ext > li.first_child,
+.list_ext > li:first-child {
+	border-top: none;
+}
+.list_ext > li.last_child,
+.list_ext > li:last-child {
+	border-bottom: 1px solid #E9E9E9;
+}
+
+/* ----- menu list ----- */
+.list_menu > li {
+	padding: 1px 10px 2px;
+	position: relative;
+	white-space: nowrap;
+}
+.lte_ie7 .list_menu, 
+.lte_ie7 .drop_down .list_menu,
+.lte_ie7 .drop_down_ext .list_menu {
+	width:expression(document.body.clientWidth>220?"220px":"auto");
+}
+.lte_ie7 .list_menu.has_submenu > li {
+	width:expression(document.body.clientWidth>200?"200px":"auto");
+}
+/* ie6 version of '>' */
+.ie6 .list_menu * li {
+	width: auto;
+}
+.list_menu > li a {
+	display: block;
+	width: 95%;
+	padding-right: 5px;
+	line-height: 18px;
+}
+.list_menu > li.selected {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.list_menu > li.hover {
+	background: #EFF5F9; /* Custom Branding */
+}
+.list_menu > li.selected.hover,
+.list_menu > li.disabled.hover {
+	background: transparent;
+}
+.list_menu > li.selected a {
+	background: #1A74B0; /* Custom Branding */
+	color: #FFF; /* Custom Branding */
+	padding: 1px 5px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	width: auto;
+}
+/* We need to fix > for ie6 everywhere here
+ * Unfortunately, since IE6 doesn't even parse a line with > in it, we need to copy paste
+ */
+.ie6 .list_menu li a {
+	display: block;
+	width: 95%;
+}
+
+.ie6 .list_menu li.hover {
+	background: #EFF5F9; /* Custom Branding */
+}
+.ie6 .list_menu li.selected a {
+	background: #1A74B0; /* Custom Branding */
+	color: #FFF; /* Custom Branding */
+	width: auto;
+}
+.ie6 .list_menu * li a {
+	display:inline;
+	width:auto;
+	padding: 0;
+}
+.ie6 .list_menu * li.selected {
+	padding: 0;
+}
+.ie6 .list_menu * li.hover {
+	background: none;
+}
+.ie6 .list_menu * li.selected a {
+	background: none;
+	padding: 0;
+	border: 0;
+}
+.list_menu .list_img {
+	float: left;
+	margin-right: 3px;
+}
+.list_menu a:hover, .list_menu a:focus {
+	text-decoration: none;
+}
+.list_menu .separator {
+	height: 1px;
+	line-height: 0;
+	font-size: 0;
+	margin: 0;
+	position: relative;
+	white-space: nowrap;
+}
+.lte_ie7 .list_menu .separator .divider {
+	margin-top: -10px;
+}
+.ie6 .list_menu .separator .divider {
+	margin: 0;
+}
+.list_menu .right_arrow {
+	margin: 3px -5px 0 0;
+	display: inline-block;
+	float: right;
+}
+.ie6 .list_menu .right_arrow {
+	position: relative;
+	right: 10px;
+}
+/* Directional arrow indicating sort order of selected state */
+.list_menu .arrow {
+	margin-left: 2px;
+	margin-bottom: 1px;
+	display: inline-block;
+}
+
+.ie6 .list_menu .arrow {
+	position: relative;
+	top: 5px;
+}
+
+/* ================ Dividers ================== */
+hr {
+	height: 0;
+	border: 0;
+}
+hr.divider {
+	margin: 0 0 5px 0;
+	border: 0;
+	border-top: 1px dotted #D9D9D9;
+}
+hr.divider_strong {
+	margin: 0 0 5px 0;
+	border: 0;
+	border-top: 2px solid #D3D3D3;
+}
+
+/* ================ Containers ================== */
+.cntr {
+	margin: 5px 0;
+}
+.cntr:first-child {
+	margin-top: 0;
+}
+.cntr:last-child {
+	margin-bottom: 0;
+}
+.cntr_squared {
+	background-color: #FFF;
+	border: 1px solid #BDBDBD;
+}
+
+/* ====== Tooltips and growl notification ========= */
+.tooltip {
+	display: inline-block;
+	zoom: 1;
+	position: relative;
+	width: 200px;
+}
+
+.tooltip_large
+{
+	width: 350px;
+}
+
+/* Give the children a more flexible width so that we can get back the actual width */
+.use_sideways_tooltip .tooltip
+{
+	width: auto;
+	max-width: 200px;
+}
+
+.use_sideways_tooltip tooltip.tooltip_large
+{
+	max-width: 350px;
+}
+
+.lte_ie7 .tooltip {
+	display: inline;
+}
+.tooltip_wrapper {
+	z-index: 150;
+}
+
+.down {
+	padding-bottom: 10px;
+	left: 0;
+}
+.up {
+	padding-top: 10px;
+	left: 0;
+}
+ .growl_notification .inner,
+.tooltip .inner {
+	display: inline-block;
+	zoom: 1;
+	padding: 10px;
+	background: #717171;
+	background: hsla(0,0%,30%,.90);
+	color: #FFF;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+.lte_ie7 .tooltip .inner {
+	display: inline;
+}
+.tooltip b { /* Arrow */
+	display: block;
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	font-size: 1px; /* for IE 6 */
+}
+.down b {
+	bottom: 0;
+	left: 10px;
+	border-width: 10px 10px 0 10px;
+	border-color: hsla(0,0%,30%,.90) transparent transparent transparent;
+}
+.lte_ie8 .down b {
+	border-color: #717171 transparent transparent transparent;
+}
+/* This is an ie6 fix. Since ie doesn't do transparent, we use the chroma filter
+ * to make the relevant borders transparent.
+ */
+.ie6 .down b {
+	border-color: transparent black black black;
+	filter: chroma(color=black);
+}
+.up b {
+	top: 0;
+	left: 10px;
+	border-width: 0 10px 10px 10px;
+	border-color: transparent transparent hsla(0,0%,30%,.90) transparent;
+}
+.lte_ie8 .up b {
+	border-color: transparent transparent #717171 transparent;
+}
+.ie6 .up b {
+	border-color: white white transparent white; /* for IE 6 */
+	filter: chroma(color=white);
+}
+.left b {
+	top: 6px;
+	left: -10px;
+	border-width: 10px 10px 10px 0;
+	border-color: transparent hsla(0,0%,30%,.90) transparent transparent;
+}
+.lte_ie8 .left b {
+	border-color: transparent #717171 transparent transparent;
+}
+/* This is an ie6 fix. Since ie doesn't do transparent, we use the chroma filter
+ * to make the relevant borders transparent.
+ */
+.ie6 .left b {
+	border-color: black transparent black black;
+	filter: chroma(color=black);
+}
+.right b {
+	top: 6px;
+	right: -10px;
+	border-width: 10px 0 10px 10px;
+	border-color: transparent transparent transparent hsla(0,0%,30%,.90);
+}
+.lte_ie8 .right b {
+	border-color: transparent transparent transparent #717171;
+}
+/* This is an ie6 fix. Since ie doesn't do transparent, we use the chroma filter
+ * to make the relevant borders transparent.
+ */
+.ie6 .right b {
+	border-color: black black black transparent;
+	filter: chroma(color=black);
+}
+.tooltip .inner p {
+	margin: 0;
+}
+.tooltip .inner h4 {
+	margin: 0;
+	color: #FFF;
+}
+.growl_notification {
+	display: block;
+	zoom: 1;
+	position: relative;
+	width: 250px;
+	cursor: pointer;
+}
+.growl_notification_container {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+}

@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html xml:lang="en" class=" js no-flexbox canvas canvastext no-touch postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><script src="dropbox_api_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">window.ST=new Date().getTime();</script><meta content="text/html; charset=UTF-8" http-equiv="content-type"><meta content="Dropbox is a free service that lets you bring your photos, docs, and videos anywhere and share them easily. Never email yourself a file again!" name="description"><meta content="online storage, free storage, file sharing, share files,
+        awesome, cloud storage, online backup, cross platform, sync, sharing, mac,
+        windows, os x, linux, backup, collaboration, file versioning, file revisions,
+        remote access, undelete" name="keywords"><meta content="REST API reference - Dropbox" property="og:title"><meta content="Dropbox is a free service that lets you bring your photos, docs, and videos anywhere and share them easily. Never email yourself a file again!" property="og:description"><meta content="/static/28114/images/dropbox_icon_64px.png" property="og:image"><meta content="https://www.dropbox.com/developers/reference/api" property="og:url"><meta content="website" property="og:type"><meta content="Dropbox" property="og:site_name"><meta content="210019893730" property="fb:app_id"><meta content="TnuSyOnBMNmtugbpL1ZvW2PbSF9LKvoTzrvOGS9h-b0" name="google-site-verification"><meta content="EZKIczQcM1-DVUMz8heu1dIhNtxNbLqbaA9-HbOnCQ4" name="google-site-verification"><meta content="tz8iotmk-pkhui406y41y5bfmfxdwmaa4a-yc0hm6r0fga7s6j0j27qmgqkmc7oovihzghbzhbdjk-uiyrz438nxsjdbj3fggwgl8oq2nf4ko8gi7j4z7t78kegbidl4" name="norton-safeweb-site-verification"><title>REST API reference - Dropbox</title><link href="https://www.dropbox.com/static/28114/images/favicon.ico" rel="shortcut icon"><link href="dropbox_api_files/main.css" type="text/css" rel="stylesheet"><link href="https://www.dropbox.com/static/28114/images/dropbox_webclip.png" rel="apple-touch-icon"><link href="https://www.dropbox.com/w3c/p3p.xml" rel="P3Pv1"><script type="text/javascript">var Constants = {
+BLOCK_CLUSTER: 'dl\x2dweb\x2edropbox\x2ecom',
+PUBSERVER: 'dl\x2edropbox\x2ecom',
+WEBSERVER: 'www\x2edropbox\x2ecom',
+LIVE_TRANSCODE_SERVER: 'showbox\x2dtr\x2edropbox\x2ecom',
+DISABLE_VIDEO_ICONS: false,
+DISABLE_VIDEOS_IN_LIGHTBOX: false,
+block: 'dl\x2dweb\x2edropbox\x2ecom',
+protocol: 'https',
+uid: '79237988',
+email: 'cosminzamfir\x40yahoo\x2ecom',
+sess_id: '102700844894364857926692377064552532999',
+root_ns: 129053547,
+SVN_REV: '28114',
+TOKEN: 'a2ec97ba6e',
+IS_PROD: 1,
+WIT_ENABLED: 0,
+upload_debug: false,
+tcn: 'touch',
+date_format: 'M\x2fd\x2fyyyy',
+time_format: 'h\x3amm\x20a',
+datetime_format: 'M\x2fd\x2fyyyy\x20h\x3amm\x20a',
+ADMIN: 0,
+can_undo: 0,
+referrer: 'https\x3a\x2f\x2fwww\x2egoogle\x2ecom\x2furl\x3fsa\x3dt\x26rct\x3dj\x26q\x3d\x26esrc\x3ds\x26source\x3dweb\x26cd\x3d2\x26ved\x3d0CHIQjBAwAQ\x26url\x3dhttps\x253A\x252F\x252Fwww\x2edropbox\x2ecom\x252Fdevelopers\x252Freference\x252Fapi\x26ei\x3dIXPXT\x2d\x2dAI8nwsgb4weXkDw\x26usg\x3dAFQjCNEWCEvKOeTNYNccJyc1zAgTVreEyQ',
+TWO_ITEM_LIST: '\x25\x28x\x29s\x20and\x20\x25\x28y\x29s',
+THREE_ITEM_LIST: '\x25\x28x\x29s\x2c\x20\x25\x28y\x29s\x2c\x20and\x20\x25\x28z\x29s',
+LOCALES: [["en", "English"], ["es", "Espa\u00f1ol"], ["fr", "Fran\u00e7ais"], ["de", "Deutsch"], ["ja", "\u65e5\u672c\u8a9e"], ["ko", "\ud55c\uad6d\uc5b4"]],
+USER_LOCALE: 'en',
+EMAIL_VERIFIED: 0                    };</script><script>Constants['auto_timezone_offset'] = 2.0;</script><script>Constants['can_shmodel'] = "true";</script><script>Constants['can_fb_invite'] = "true";</script><script type="text/javascript">
+        function global_report_exception (e, f, l, tb, force) {
+            if (!window.reported_exception || force) {
+                var stack_str = "";
+                try {
+                    if (!tb) {
+                        var stack = get_stack_rep();
+                        stack.pop(); // remove global_report_exception
+                        stack.pop(); // remove onerror handler
+                        stack_str = stack.join("\n");
+                    }
+                } catch (e) { }
+                var dbr = new Ajax.Request("/jse", {parameters: {
+                    'e': e,
+                    'f': f || window.location.href,
+                    'l': l,
+                    'loc': window.location.href,
+                    'ref': Constants.referrer,
+                    'tb': tb || stack_str,
+                    'trace': Trace && Trace.get()
+                }});
+                window.reported_exception = true;
+           }
+        }
+
+        // this constant gets set to true at the bottom of dropbox.js
+        window.LoadedJsSuccessfully = false;
+
+        /*
+        Turning off this check.  It is broken because we have merged lib.js with dropbox.js
+        and this function depends on lib.js and is needed by dropbox.js.  We will later
+        put this script into dropbox.js in the correct dependency order.
+          -makinde
+
+        //Event.observe(window, "load", function () {
+        //    if (!window.LoadedJsSuccessfully) {
+        //        global_report_exception("Failed to load javascript!");
+        //    }
+        //});
+        */
+
+        window.onerror = function (e, f, l) {
+            global_report_exception(e, f, l);
+        };
+</script><script src="dropbox_api_files/dropbox-mini.js" type="text/javascript"></script><script>
+               if (self != top) {
+                   top.location.replace(self.location.href);
+                   setTimeout(function() {
+                       document.body.innerHTML = "<img src='https://www.dropbox.com/static/images/logo.png' onClick='top.location.href=window.location.href' />";
+                   }, 1);
+               } else if (false) {
+                   document.observe("dom:loaded", function () {$('frame-bust-show-me').show()});
+               }
+            </script><style type="text/css">.hny-fufl { display: none; }</style><!--[if lte IE 8]>
+            <style>
+                .sick-input input[type=password] {
+                    padding-top: 7px !important;
+                    padding-bottom: 3px !important;
+                }
+                .sick-input.small input {
+                    padding-top: 4px !important;
+                    padding-bottom: 2px !important;
+                }
+                .sick-input.small input[type=password] {
+                    padding-top: 6px !important;
+                    padding-bottom: 0px !important;
+                }
+            </style>
+            <![endif]--><!--[if lt IE 9]>
+            <script src="javascript/html5shiv.js"></script>
+            <![endif]-->
+<link href="dropbox_api_files/developers.css" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+#nav, #right-content {
+  background-color: #fff;
+  font: 100% "Open Sans", "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif; /* 13px base font size */
+  font-size: 13px;
+  //line-height: 1.54em; /* 20px */
+}
+</style>
+
+
+
+
+<style type="text/css" media="screen">
+    ul.parameters li {
+        padding-bottom: 20px;
+    }
+    ul.parameters li:last-child {
+        padding-bottom: 0;
+    }
+    ul.parameters .param {
+        font-weight: bold;
+        padding-right: 0.4em;
+    }
+    ul.parameters .param-info {
+        font-style: italic;
+        color: #acacac;
+        padding-right: 0.6em;
+    }
+    .green-hotbox {
+        margin-left: 10px;
+    }
+    #toc {
+        position: absolute;
+        width: 190px;
+        font-size: 13px;
+        margin: 510px 0 0 -241px;
+        padding: 20px 0 0 0;
+        border-top: 1px dotted #ccc;
+        background: #fff;
+    }
+    #right-content #toc li, #toc h4 {
+        line-height: 25px;
+    }
+    #toc h4 {
+        padding-left: 40px;
+    }
+    #right-content #toc ul {
+        width: 190px;
+    }
+    #right-content .toc-fixed {
+        position: fixed;
+        margin-top: -130px;
+    }
+    .toc-selected {
+        background: #4291Df;
+    }
+    .toc-selected a {
+        color: #fff;
+    }
+    #indices-and-tables { display: none; }
+    .half {
+        float:left;
+        position:relative;
+        width: 270px;
+        height:40px;
+        margin: 1em 1em 1.5em 0;
+        padding: 10px;
+        text-align: center;
+    }
+    .errors-table td {
+        vertical-align: top;
+    }
+    dt {
+        float: left;
+        width: 100px;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #888;
+        text-align: right;
+        padding-top: 1px;
+    }
+
+    .url-label {
+       padding-top: 11px;
+    }
+
+    dd {
+        margin: 0 0 20px 120px;
+    }
+
+    .section .errors-table td {
+        padding: 0 10px 10px 0;
+    }
+
+    .method-title, .method-title-first {
+        font-size: 16px;
+        margin: 35px 0 21px 0;
+        padding-top: 22px;
+    }
+
+    .method-title-first {
+        margin-top: 20px;
+    }
+
+    #right-content li {
+        margin: 0;
+        line-height: 20px;
+    }
+
+    #toc ul {
+        padding: 0 0 10px 0;
+    }
+
+    table.api-param-values {
+        border: 1px solid #ddd;
+        align: center;
+        width: 100%;
+    }
+
+    table.api-param-values th, table.api-param-values td {
+        text-align: left;
+        vertical-align: top;
+        padding: 6px 6px 6px 11px;
+    }
+
+    table.api-param-values tr {
+        width: 20px;
+    }
+
+    table.api-param-values tr:nth-child(2) td {
+        padding-top: 11px;
+    }
+    table.api-param-values tr:last-child td {
+        padding-bottom: 12px;
+    }
+
+    table.center-first-col tr td:first-child, table.center-first-col tr th:first-child {
+        text-align: center;
+        width: 70px;
+    }
+
+    table.api-param-values th {
+        background-color: #fafafa;
+        border-bottom: 1px solid #ddd;
+    }
+</style>
+<link href="dropbox_api_files/pygments.css" rel="stylesheet" type="text/css" media="all">
+
+
+<script>
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-279179-2']);
+        _gaq.push(['_setDomainName', document.domain]);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          var src_prefix = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www');
+          ga.src = src_prefix + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        </script></head><body style="min-height: 645px;" class="en None gecko"><div style="display: none;" id="modal-behind"></div><div style="display: none;" id="modal"><div id="modal-box"><a href="#" id="modal-x" onclick="javascript: Modal.hide(); Event.stop(event); return false;"></a><h2 id="modal-title"></h2><div id="modal-content"></div></div></div><div style="display: none;" id="modal-overlay" onclick="Modal.hide(); Event.stop(event); return false;"></div><div id="floaters"></div><div style="display:none" id="trash-can"></div><div style="display:none" id="grave-yard"></div><div style="display: none;" class="external-drop-indicator top"></div><div style="display: none;" class="external-drop-indicator right"></div><div style="display: none;" class="external-drop-indicator bottom"></div><div style="display: none;" class="external-drop-indicator left"></div><div style="display:none; margin-bottom: -10px" id="translate-div"><form action="/translation_suggest" onsubmit="TranslationSuggest.submit_suggest(event); return false;" method="POST" id="translation-suggest-form"><input name="locale" value="en" type="hidden"><input name="locale_url" value="https://www.dropbox.com/developers/reference/api" type="hidden"><input name="msg_id" value="" id="translation-msg-id" type="hidden"><p class="clean"><label for="bad_text">Please paste or type the improper translation</label></p><div id="part-one"><p><span style="display: none" id="bad-i18n-text-error" class="error-message">We could not find that string on this page.</span><textarea style="width: 1px;" autocomplete="off" class="act_as_block textinput" rows="3" cols="40" id="bad-i18n-text" name="bad_text"></textarea></p><div style="display: none;" id="bad-i18n-text-complete" class="autocomplete"></div></div><div id="part-two"><div style="margin-bottom: 10px" id="translation-msg-display" class="emo hotbox"></div><p class="clean">Original English text</p><div style="margin-bottom: 10px" id="translation-orig-msg-display" class="green-hotbox"></div><p class="clean"><label for="suggested_text">Suggested translation</label></p><p><textarea style="width: 1px;" rows="3" cols="40" name="suggested_text" class="textinput act_as_block"></textarea></p><p class="clean"><label for="explanation">Explanation of the problem</label></p><p><textarea style="width: 1px;" rows="3" cols="40" name="explanation" class="textinput act_as_block"></textarea></p><div class="modal-buttons"><input onclick="TranslationSuggest.start_wizard(event);return false;" id="translation-back-button" value="Back" class="freshbutton" type="button"><input onclick="TranslationSuggest.submit_suggest(event); return false;" value="Suggest translation" class="freshbutton-blue" type="submit"></div></div></form></div><div id="notify-wrapper"><span style="display: none;" id="notify"><span id="notify-msg">Sorry, there was a problem loading this page.</span></span></div><div id="outer-frame"><div id="page-header"><div id="account-header"><ul class="nav"><li><a href="https://www.dropbox.com/getspace" target="" class="header-nav-link"><img src="dropbox_api_files/icon_spacer.gif" style="" class="sprite s_gift link-img" data-src="">Get free space!</a></li><li class="ui-button"><a href="#" class="header-nav-link" onclick="return false;"><span id="emsnippet-d808008bb72a2fd2">cs zm</span>&nbsp;<img src="dropbox_api_files/icon_spacer.gif" style="" class="sprite s_login_arrow link-img" data-src=""></a><div class="sub-nav chat-bubble"><ul><li><div class="name">cs zm</div><div class="email force-no-break"><span id="emsnippet-97ac4e6e12e53783">cosminzamfir@yahoo.com</span></div></li><li><div class="quota-text">314 MB of 2 GB used</div><div class="quota_graph_container"><div style="width: 15%;" class="quota_graph_bar "></div></div></li><li><a href="https://www.dropbox.com/account" target=""><img src="dropbox_api_files/icon_spacer.gif" style="" class="sprite s_settings_16" data-src="">Settings</a></li><li><a href="https://www.dropbox.com/install" target=""><img src="dropbox_api_files/icon_spacer.gif" style="" class="sprite s_install" data-src="">Install</a></li><li><a href="https://www.dropbox.com/plans" target=""><img src="dropbox_api_files/icon_spacer.gif" style="" class="sprite s_star_16" data-src="">Upgrade</a></li><li><a href="https://www.dropbox.com/logout"><img src="dropbox_api_files/icon_spacer.gif" style="" class="sprite s_signout" data-src="">Sign out</a></li></ul><div class="chat-bubble-arrow-border"></div><div class="chat-bubble-arrow"></div></div></li></ul></div></div><div id="page-logo-header" class="noborder"><a href="https://www.dropbox.com/"><img src="dropbox_api_files/logo210.png" alt="Dropbox home" id="db-logo"></a></div><div style="display:none;" id="modal-locale-selector"><ul><li><a data-locale="en" class="locale-option">English</a></li><li><a data-locale="es" class="locale-option">Español</a></li><li><a data-locale="fr" class="locale-option">Français</a></li><li><a data-locale="de" class="locale-option">Deutsch</a></li><li><a data-locale="ja" class="locale-option">日本語</a></li><li><a data-locale="ko" class="locale-option">한국어</a></li></ul></div><div id="page-content">
+
+
+
+
+
+<div id="nav">
+	<ul>
+
+
+
+
+	<li class="head">
+        <a href="https://www.dropbox.com/developers">
+
+        <img src="dropbox_api_files/icon_spacer.gif" alt="" class="sprite s_home link-sprite">API home
+            </a>
+        </li>
+    </ul>
+	<ul>
+
+
+
+
+	<li class="head">
+        <a href="https://www.dropbox.com/developers/apps">
+
+        <img src="dropbox_api_files/icon_spacer.gif" alt="" class="sprite s_star_16 link-sprite">My apps
+            </a>
+        </li>
+    </ul>
+	<ul>
+
+
+
+
+	<li class="head">
+        <a href="https://www.dropbox.com/developers/start">
+
+        <img src="dropbox_api_files/icon_spacer.gif" alt="" class="sprite s_bricks link-sprite">Getting started
+            </a>
+        </li>
+		<li>
+		<a href="https://www.dropbox.com/developers/start/core">Core concepts</a>  </li>
+		<li>
+		<a href="https://www.dropbox.com/developers/start/setup">Setup</a>  </li>
+		<li>
+		<a href="https://www.dropbox.com/developers/start/authentication">Authentication</a>  </li>
+		<li>
+		<a href="https://www.dropbox.com/developers/start/files">Files and folders</a>  </li>
+    </ul>
+	<ul>
+
+
+
+
+	<li class="head">
+        <a href="https://www.dropbox.com/developers/reference">
+
+        <img src="dropbox_api_files/icon_spacer.gif" alt="" class="sprite s_report link-sprite">Reference
+            </a>
+        </li>
+		<li>
+		<a href="https://www.dropbox.com/developers/reference/sdk">Development kits</a>  </li>
+	        <li class="selected">
+		<a href="https://www.dropbox.com/developers/reference/api">REST API</a>  </li>
+		<li>
+		<a href="https://www.dropbox.com/developers/reference/bestpractice">Best practices</a>  </li>
+		<li>
+		<a href="https://www.dropbox.com/developers/reference/branding">Branding guide</a>  </li>
+		<li>
+		<a href="https://www.dropbox.com/developers/reference/tos">Terms and conditions</a>  </li>
+    </ul>
+<ul id="more">
+      <li>
+          <a href="https://www.dropbox.com/developers/announcements"><img src="dropbox_api_files/icon_spacer.gif" alt="" class="sprite s_transmit_gray link-sprite">Announcements</a>      </li>
+      <li><a href="http://forums.dropbox.com/forum.php?id=5"><img src="dropbox_api_files/icon_spacer.gif" alt="" class="sprite s_group link-sprite">Developer forum</a></li>
+      <li><a href="#" onclick="Apps.developer_support(); return false;"><img src="dropbox_api_files/icon_spacer.gif" alt="" class="sprite s_bug link-sprite">Dropbox API support</a></li>
+    </ul>
+</div>
+
+
+<div id="dev-support-modal" style="display:none;">
+    <p>
+        Couldn't find an answer in the <a href="http://forums.dropbox.com/forum.php?id=5">Forums</a>? Tell us what problems or questions you have with the Dropbox API. Please allow up to 1-2 business days for a response.
+    </p>
+    <form action="/developers/bugreports" id="dev-support-form">
+        <div>
+            <input name="user_email" value="cosminzamfir@yahoo.com" type="hidden">
+            <p>
+                Subject<br>
+                <input style="width: 1px;" name="subject_posted" id="subject" class="textinput act_as_block" type="text">
+            </p>
+            <p>
+                Details<br>
+                <textarea style="width: 1px;" name="details_posted" rows="8" cols="20" class="textinput act_as_block"></textarea>
+            </p>
+            <p style="text-align: right; margin-bottom: 0;">
+                <input value="Submit" class="freshbutton-blue" onclick="Apps.submit_developer_support(event); return false;" type="submit">
+            </p>
+        </div>
+    </form>
+</div>
+<div id="right-content">
+
+<span class="dev-content">
+<div style="padding: 20px 0px 0px;" id="toc">
+        <h4>Authentication</h4>
+            <ul>
+                <li id="toc-request-token"><a href="#request-token">/request_token</a></li>
+                <li id="toc-authorize"><a href="#authorize">/authorize</a></li>
+                <li id="toc-access-token"><a href="#access-token">/access_token</a></li>
+            </ul>
+        <h4>Dropbox accounts</h4>
+            <ul>
+                <li id="toc-account-info"><a href="#account-info">/account/info</a></li>
+            </ul>
+        <h4>Files and metadata</h4>
+            <ul>
+                <li id="toc-files-GET"><a href="#files-GET">/files (GET)</a></li>
+                <li id="toc-files_put"><a href="#files_put">/files_put</a></li>
+                <li id="toc-files-POST"><a href="#files-POST">/files (POST)</a></li>
+                <li id="toc-metadata"><a href="#metadata">/metadata</a></li>
+                <li id="toc-delta"><a href="#delta">/delta</a></li>
+                <li id="toc-revisions"><a href="#revisions">/revisions</a></li>
+                <li id="toc-restore"><a href="#restore">/restore</a></li>
+                <li id="toc-search"><a href="#search">/search</a></li>
+                <li id="toc-shares"><a href="#shares">/shares</a></li>
+                <li id="toc-media"><a href="#media">/media</a></li>
+                <li id="toc-copy_ref"><a href="#copy_ref">/copy_ref</a></li>
+                <li id="toc-thumbnails"><a href="#thumbnails">/thumbnails</a></li>
+            </ul>
+        <h4>File operations</h4>
+            <ul>
+                <li id="toc-fileops-copy"><a href="#fileops-copy">/fileops/copy</a></li>
+                <li id="toc-fileops-create-folder"><a href="#fileops-create-folder">/fileops/create_folder</a></li>
+                <li id="toc-fileops-delete"><a href="#fileops-delete">/fileops/delete</a></li>
+                <li id="toc-fileops-move"><a href="#fileops-move">/fileops/move</a></li>
+            </ul>
+ </div>
+
+
+<div class="section" id="api-specification">
+<h1 style="margin-top:9px">REST API</h1>
+<p>The REST API is the underlying interface for all of our official <a href="https://www.dropbox.com/anywhere" target="_blank">Dropbox mobile apps</a> and our <a href="https://www.dropbox.com/developers/reference/sdk">SDKs</a>.
+ It's the most direct way to access the API. This reference document is 
+designed for those interested in developing for platforms not supported 
+by the SDKs or for those interested in exploring API features in detail.</p>
+
+<div class="api-method" id="general-notes"></div>
+<h2 style="margin-top:28px" id="general-notes">General notes</h2><a class="headerlink" href="#general-notes"></a>
+
+<h3 style="margin-top:9px">SSL only</h3>
+<p>We require that all requests are done over SSL.</p>
+
+<h3>App folder access type</h3>
+<p>The default root level access type, <strong>app folder</strong> (as described in <a href="https://www.dropbox.com/developers/start/core">core concepts</a>), is referenced in API URLs by its codename <code>sandbox</code>. This is the only place where such a distinction is made.</p>
+
+<h3>UTF-8 encoding</h3>
+<p>Every string passed to and from the Dropbox API needs to be UTF-8 encoded.  For maximum compatibility, normalize to <a href="http://unicode.org/reports/tr15/" target="_blank">Unicode Normalization Form C</a> (NFC) before UTF-8 encoding.</p>
+
+<h3>Version numbers</h3>
+<p>The current version of our API is version 1. Most <a href="https://www.dropbox.com/developers/reference/oldapi">version 0 methods</a> will work for the time being, but some of its methods risk being removed (most notably, the version 0 API methods <code>/token</code> and <code>/account</code>).</p>
+
+<div id="date-format">
+<h3>Date format</h3>
+<p>All dates in the API are strings in the following format:</p>
+<pre class="literal-block">"Sat, 21 Aug 2010 22:31:20 +0000"</pre>
+<p>In code format, which can be used in all programming languages that support <code>strftime</code> or <code>strptime</code>:</p>
+<pre class="literal-block">"%a, %d %b %Y %H:%M:%S %z"</pre>
+</div>
+
+<div class="api-method" id="param.locale"></div>
+<h2>Locale global request parameter</h2>
+<p>Dropbox uses the <code>locale</code> parameter to specify language 
+settings of content responses. If your app supports any language other 
+than English, insert the appropriate <a href="http://en.wikipedia.org/wiki/IETF_language_tag" target="_blank">IETF language tag</a>. When a <a href="https://www.dropbox.com/help/31" target="_blank">supported language</a> is specified, Dropbox will returned translated <code>size</code> and/or <code>user_error</code> fields (where applicable).</p>
+
+
+<div class="section api-method" id="error-handling">
+<h2>Error handling</h2><a class="headerlink" href="#error-handling"></a>
+
+<p>Errors are returned using standard HTTP error code syntax. Any 
+additional info is included in the body of the return call, 
+JSON-formatted. Error codes not listed here are in the REST API methods 
+listed below.</p>
+
+<h3>Standard API errors</h3>
+<table class="api-param-values center-first-col">
+    <tbody><tr>
+        <th>Code</th><th>Description</th>
+    </tr>
+    <tr>
+        <td>400</td><td>Bad input parameter. Error message should indicate which one and why.</td>
+    </tr>
+    <tr>
+        <td>401</td><td>Bad or expired token. This can happen if the 
+user or Dropbox revoked or expired an access token. To fix, you should 
+re-authenticate the user.</td>
+    </tr>
+    <tr>
+        <td>403</td><td>Bad OAuth request (wrong consumer key, bad 
+nonce, expired timestamp...). Unfortunately, re-authenticating the user 
+won't help here.</td>
+    </tr>
+    <tr>
+        <td>404</td><td>File or folder not found at the specified path.</td>
+    </tr>
+    <tr>
+        <td>405</td><td>Request method not expected (generally should be GET or POST).</td>
+    </tr>
+    <tr>
+        <td>503</td><td>Your app is making too many requests and is being rate limited. 503s can trigger on a per-app or per-user basis.</td>
+    </tr>
+    <tr>
+        <td>507</td><td>User is over Dropbox storage quota.</td>
+    </tr>
+    <tr>
+        <td>5xx</td><td>Server error. Check <a href="http://status.dropbox.com/" target="_blank">DropboxOps</a>.</td>
+    </tr>
+</tbody></table>
+
+</div><!--error-handling-->
+
+
+
+<div class="section" id="authentication-methods">
+<h2>Authentication methods</h2>
+
+<p>Dropbox uses <a href="http://oauth.net/" target="_blank">OAuth</a> to authenticate all API requests.</p>
+
+<div class="section" id="oauth_authentication">
+
+
+<div class="section api-method" id="request-token">
+<h3 class="method-title-first">/oauth/request_token<a class="headerlink" href="#request-token" title="Permalink to request token headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>
+        <p>Step 1 of authentication. Obtain an OAuth <em>request token</em> to be used for the rest of the authentication process.</p>
+        <p>This method corresponds to <a href="http://oauth.net/core/1.0/#auth_step1" target="_blank">Obtaining an Unauthorized Request Token</a> in the OAuth Core 1.0 specification.</p>
+    </dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd>
+        <pre class="literal-block">https://api.dropbox.com/1/oauth/request_token</pre>
+    </dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <p>There are no Dropbox-specific parameters for this method. See <a href="http://oauth.net/core/1.0/#rfc.section.6.1.1" target="_blank">Consumer Obtains a Request Token</a>
+ in the OAuth Core 1.0 specification for a description of the OAuth 
+parameters used for fetching a request token. Since this method is on 
+behalf of an unauthenticated user, no access token or secret should be 
+involved when signing or sending the request.</p>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>A request token and the corresponding request token secret, URL-encoded. This token/secret pair is meant to be used with <code>/oauth/access_token</code> to complete the authentication process and cannot be used for any other API calls. See <a href="http://oauth.net/core/1.0/#rfc.section.6.1.2" target="_blank">Service Provider Issues an Unauthorized Request Token</a> in the OAuth Core 1.0 specification for additional discussion of the values returned when fetching a request token.</p>
+        <p><strong>Sample response</strong></p>
+        <pre class="literal-block">oauth_token_secret=b9q1n5il4lcc&amp;oauth_token=mh7an9dkrg59</pre>
+    </dd>
+</dl>
+</div><!-- /request-token -->
+
+
+<div class="section api-method" id="authorize">
+<h3 class="method-title">/oauth/authorize<a class="headerlink" href="#oauth-authorize" title="Permalink to OAuth authorize headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>
+        <p>Step 2 of authentication. Applications should direct the user to <code>/oauth/authorize</code>.
+ This isn't an API call per se, but rather a web endpoint that lets the 
+user sign in to Dropbox and choose whether to grant the application the 
+ability to access files on their behalf. The page served by <code>/oauth/authorize</code>
+ should be presented to the user through their web browser. Without the 
+user's authorization in this step, it isn't possible for your 
+application to obtain an access token from <code>/oauth/access_token</code>.</p>
+        <p>This method corresponds to <a href="http://oauth.net/core/1.0/#auth_step2" target="_blank">Obtaining User Authorization</a> in the OAuth Core 1.0 specification.</p>
+    </dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd>
+        <pre class="literal-block"><strong>https</strong>://<strong>www.dropbox.com</strong>/1/oauth/authorize</pre>
+        <p><strong>Note:</strong> This is the only step that requires an endpoint on <code><strong>www.dropbox.com</strong></code>. All other API requests are done via <code>api.dropbox.com</code> or <code>api-content.dropbox.com</code>. For security's sake, please do not embed this webpage in your web app (e.g. via an <code>iframe</code>).
+ The user must be redirected to the Dropbox website over HTTPS for 
+unhindered and untampered authorization. As soon as authorization is 
+accepted, the user will be redirected back to your website or to the 
+website specified using <code>oauth_callback</code> (more on that below). If the user declines to authorize your app, no redirect to your site will happen.</p>
+    </dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>GET</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">oauth_token</span> <span class="param-info">required</span> The request token obtained via <code>/oauth/request_token</code>.</li>
+            <li><span class="param">oauth_callback</span> After the user authorizes an application, the user is redirected to the application-served URL provided by this parameter.
+            </li>
+            <li><span class="param">locale</span> If the locale specified is a <a href="https://www.dropbox.com/help/31" target="_blank">supported language</a>, Dropbox will direct users to a translated version of the authorization website. See the <a href="#param.locale">notes above</a> for more information about supported locales.
+            </li>
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+       <p>Because the application doesn't call <code>/oauth/authorize</code>
+ directly, there is no direct return value. After the user authorizes 
+the application, use its request token to retrieve an access token via 
+the <a href="#access-token"><code>/oauth/access_token</code></a> API call. If the <code>oauth_callback</code>
+ parameter is omitted, the application must find some other way of 
+determining when the authorization step is complete. For example, the 
+application can have the user explicitly indicate to it that this step 
+is complete, but this flow may be less intuitive for users than the 
+redirect flow.</p>
+
+       <p>If <code>oauth_callback</code> is specified, the application 
+will know authorization is complete when the user is redirected to the 
+given URL. Dropbox will provide the following return value via GET 
+parameters in the URL:</p>
+
+        <ul class="parameters">
+            <li><span class="param">oauth_token</span> The request token that was just authorized. The request token secret isn't sent back.</li>
+            <li><span class="param">uid</span> The user's unique Dropbox ID.</li>
+        </ul>
+    </dd>
+</dl>
+</div><!-- /authorize -->
+
+
+<div class="section api-method" id="access-token">
+<h3 class="method-title">/oauth/access_token</h3>
+<dl>
+    <dt>Description</dt>
+    <dd>
+        <p>Step 3 of authentication. After the <code>/oauth/authorize</code> step is complete, the application can call <code>/oauth/access_token</code> to acquire an access token.</p>
+        <p>This method corresponds to <a href="http://oauth.net/core/1.0/#auth_step3" target="_blank">Obtaining an Access Token</a> in the OAuth Core 1.0 specification.</p>
+    </dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/oauth/access_token</pre></dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <p>There are no Dropbox-specific parameters for this method. See <a href="http://oauth.net/core/1.0/#rfc.section.6.3.1" target="_blank">Consumer Requests an Access Token</a> in the OAuth Core 1.0 specification for a description of the parameters used for fetching an access token. Note that the <code>oauth_token</code> and <code>oauth_token_secret</code> for this method are the request token and request token secret obtained previously via <code>/oauth/request_token</code>.</p>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>URL-encoded access token, access token secret, and Dropbox 
+user id. Upon return, the authorization process is now complete and the 
+access token and corresponding secret can be used to sign requests for 
+the main API calls. See <a href="http://oauth.net/core/1.0/#rfc.section.6.3.2" target="_blank">Service Provider Grants an Access Token</a>
+ in the OAuth Core 1.0 specification for additional discussion of the 
+values returned when fetching an access token.  If your app is 
+configured to work within an app folder, that folder is also created 
+during this step.</p>
+        <p><strong>Sample response</strong></p>
+        <pre class="literal-block">oauth_token_secret=95grkd9na7hm&amp;oauth_token=ccl4li5n1q9b&amp;uid=100</pre>
+    </dd>
+</dl>
+</div><!-- access-token -->
+
+</div><!-- /api-authentication -->
+
+
+<div class="section" id="accounts">
+<h2>Dropbox accounts</h2>
+
+
+<div class="section api-method" id="account-info">
+<h3 class="method-title-first">/account/info<a class="headerlink" href="#account-info" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>Retrieves information about the user's account.</dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/account/info</pre></dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>GET</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+          <li><span class="param">locale</span> Use to specify language settings for user error messages and other language specific text. See the <a href="#param.locale">notes above</a> for more information about supported locales.</li>
+
+      </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>User account information.</p>
+        <p><strong>Sample JSON response</strong></p>
+<pre class="last literal-block">{
+    "referral_link": "https://www.dropbox.com/referrals/r1a2n3d4m5s6t7",
+    "display_name": "John P. User",
+    "uid": 12345678,
+    "country": "US",
+    "quota_info": {
+        "shared": 253738410565,
+        "quota": 107374182400000,
+        "normal": 680031877871
+    }
+}
+</pre>
+<br>
+        <p><strong>Return value definitions</strong></p>
+        <table class="api-param-values">
+            <tbody><tr><th>field</th><th>description</th></tr>
+            <tr><td><code>referral_link</code></td><td>The user's <a href="https://www.dropbox.com/referrals">referral link</a>.</td></tr>
+            <tr><td><code>display_name</code></td><td>The user's display name.</td></tr>
+            <tr><td><code>uid</code></td><td>The user's unique Dropbox ID.</td></tr>
+            <tr><td><code>country</code></td><td>The user's two-letter country code, if available.</td></tr>
+            <tr><td><code>quota_info/normal</code></td><td>The user's used quota outside of shared folders (bytes).</td></tr>
+            <tr><td><code>quota_info/shared</code></td><td>The user's used quota in shared folders (bytes).</td></tr>
+            <tr><td><code>quota_info/quota</code></td><td>The user's total quota allocation (bytes).</td></tr>
+        </tbody></table>
+    </dd>
+
+</dl>
+</div><!-- account-info -->
+
+
+</div><!-- accounts -->
+
+
+<div class="section" id="files-and-metadata">
+<h2>Files and metadata</h2>
+<div class="section api-method" id="files-GET">
+
+
+<h3 class="method-title-first">/files (GET)<a class="headerlink" href="#files" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>Downloads a file. Note that this call goes to the <b>api-content</b> server.</dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://<b>api-content</b>.dropbox.com/1/files/&lt;root&gt;/&lt;path&gt;</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span> The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+            <li><span class="param">path</span> The path to the file you want to retrieve.</li>
+        </ul>
+    </dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>GET</dd>
+
+    <dt>Parameter</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">rev</span> The revision of the file to retrieve. This defaults to the most recent revision.</li>
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>The specified file's contents at the requested revision.</p>
+    </dd>
+    <dd>
+        <p>The HTTP response contains the <a href="#metadata-details">content metadata</a> in JSON format within an <code>x-dropbox-metadata</code> header.</p>
+    </dd>
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr>
+                <td>404</td>
+                <td>The file wasn't found at the specified path, or wasn't found at the specified <code>rev</code>.</td>
+            </tr>
+        </tbody></table>
+    </dd>
+
+    <dt>Notes</dt>
+    <dd>
+        <p>This method also supports <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35.2" target="_blank">HTTP Range Retrieval Requests</a> to allow retrieving partial file contents.</p>
+    </dd>
+</dl>
+</div><!--files (GET)-->
+
+
+<div class="section api-method" id="files_put">
+<h3 class="method-title">/files_put<a class="headerlink" href="#files" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>
+        <p>Uploads a file using PUT semantics. Note that this call goes to the <b>api-content</b> server.</p>
+        <p>This method is in most cases simpler to use than <a href="#files-POST">/files (POST)</a>.</p>
+    </dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://<b>api-content</b>.dropbox.com/1/files_put/&lt;root&gt;/&lt;path&gt;?param=val</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span> The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+            <li><span class="param">path</span> The full path to the file you want to write to. This parameter should <em>not</em> point to a folder.</li>
+            <li><span class="param">param=val</span> The URL-encoded parameters for this request. They cannot be sent in the request body.</li>
+        </ul>
+    </dd>
+
+    <dt>Version</dt><dd>1</dd>
+    <dt>Method</dt><dd>PUT</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">The body of the request</span> <span class="param-info">required</span>
+ The file contents to be uploaded. Since the entire PUT/POST body will 
+be treated as the file, any parameters must be passed as part of the 
+request URL. The request URL should be signed just as you would sign any
+ other OAuth request URL.</li>
+            <li><span class="param">locale</span> The metadata returned on successful upload will have its <code>size</code> field translated based on the given locale.</li>
+            <li><span class="param">overwrite</span> This value, either <code>true</code> (default) or <code>false</code>, determines what happens when there's already a file at the specified path. If <code>true</code>, the existing file will be overwritten by the new one. If <code>false</code>, the new file will be automatically renamed (for example, <samp>test.txt</samp> might be automatically renamed to <samp>test (1).txt</samp>). The new name can be obtained from the returned metadata.</li>
+            <li><span class="param">parent_rev</span> The revision of the file you're editing. If <code>parent_rev</code>
+ matches the latest version of the file on the user's Dropbox, that file
+ will be replaced. Otherwise, the new file will be automatically renamed
+ (for example, <samp>test.txt</samp> might be automatically renamed to <samp>test (conflicted copy).txt</samp>). If you specify a revision that doesn't exist, the file will not save (error 400). Get the most recent <code>rev</code> by performing a call to <a href="#metadata">/metadata</a>.</li>
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>The metadata for the uploaded file. More information on the returned metadata fields are available <a href="#metadata-details">here</a>.
+</p>
+        <p><strong>Sample JSON response</strong></p>
+        <pre class="literal-block">{
+    "size": "225.4KB",
+    "rev": "35e97029684fe",
+    "thumb_exists": false,
+    "bytes": 230783,
+    "modified": "Tue, 19 Jul 2011 21:55:38 +0000",
+    "path": "/Getting_Started.pdf",
+    "is_dir": false,
+    "icon": "page_white_acrobat",
+    "root": "dropbox",
+    "mime_type": "application/pdf",
+    "revision": 220823
+}
+</pre>
+    </dd>
+
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr>
+                <td>411</td>
+                <td>Chunked encoding was attempted for this upload, but is not supported by Dropbox.</td>
+            </tr>
+        </tbody></table>
+    </dd>
+    <dt>Notes</dt>
+    <dd>
+        <p>There's a 150MB limit to all uploads through the API. Users 
+looking to upload files larger than 150MB will have to do so through the
+ <a href="https://www.dropbox.com/install">Dropbox desktop application</a>.</p>
+        <p>We <b>strongly recommend</b> providing a <code>Content-Length</code> header set to the size of the uploaded file so that the server can verify that it has received the entire file contents.
+    </p></dd>
+</dl>
+</div><!--files_put-->
+
+
+<div class="section api-method" id="files-POST">
+<h3 class="method-title">/files (POST)<a class="headerlink" href="#files" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd><p>Uploads a file. Note that this call goes to the <b>api-content</b> server.</p>
+<p>We recommend you use <a href="#files_put">/files_put</a> instead due to its simpler interface.</p></dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://<b>api-content</b>.dropbox.com/1/files/&lt;root&gt;/&lt;path&gt;</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span> The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+            <li><span class="param">path</span> The path to the folder the file should be uploaded to. This parameter should <em>not</em> point to a file.</li>
+        </ul>
+    </dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">file</span> <span class="param-info">required</span> The file contents to be uploaded. We require a multipart upload (<code>multipart/form-data</code>), and the <code>filename</code> parameter of this field should be set to the desired destination filename. While signing this request for OAuth, the <code>file</code>
+ parameter should be set to the destination filename, and then switched 
+to the file contents when preparing the multipart request.</li>
+            <li><span class="param">locale</span> The metadata returned on successful upload will have its <code>size</code> field translated based on the given locale.</li>
+            <li><span class="param">overwrite</span> This value, either <code>true</code> (default) or <code>false</code>, determines what happens when there's already a file at the specified path. If <code>true</code>, the existing file will be overwritten by the new one. If <code>false</code>, the new file will be automatically renamed (for example, <samp>test.txt</samp> might be automatically renamed to <samp>test (1).txt</samp>). The new name can be obtained from the returned metadata.</li>
+            <li><span class="param">parent_rev</span> The revision of the file you're editing. If <code>parent_rev</code>
+ matches the latest version of the file on the user's Dropbox, that file
+ will be replaced. Otherwise, the new file will be automatically renamed
+ (for example, <samp>test.txt</samp> might be automatically renamed to <samp>test (conflicted copy).txt</samp>). If you specify a revision that doesn't exist, the file will not save (error 400). Get the most recent <code>rev</code> by performing a call to <a href="#metadata">/metadata</a>.</li>
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>The metadata for the uploaded file. More information on the returned metadata fields are available <a href="#metadata-details">here</a>.
+</p>
+        <p><strong>Sample JSON response</strong></p>
+        <pre class="literal-block">{
+    "size": "225.4KB",
+    "rev": "35e97029684fe",
+    "thumb_exists": false,
+    "bytes": 230783,
+    "modified": "Tue, 19 Jul 2011 21:55:38 +0000",
+    "path": "/Getting_Started.pdf",
+    "is_dir": false,
+    "icon": "page_white_acrobat",
+    "root": "dropbox",
+    "mime_type": "application/pdf",
+    "revision": 220823
+}
+</pre>
+    </dd>
+
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr>
+                <td>400</td>
+                <td>The file extension is on Dropbox's ignore list (e.g. <b>thumbs.db</b> or <b>.ds_store</b>).</td>
+            </tr>
+            <tr>
+                <td>404</td>
+                <td>The <code>parent_rev</code> of the file wasn't found.</td>
+            </tr>
+            <tr>
+                <td>411</td>
+                <td>Chunked encoding was attempted for this upload, but is not supported by Dropbox.</td>
+            </tr>
+        </tbody></table>
+    </dd>
+
+    <dt>Notes</dt>
+    <dd>
+        <p>There's a 150MB limit to all uploads through the API. Users 
+looking to upload files larger than 150MB will have to do so through the
+ <a href="https://www.dropbox.com/install">Dropbox desktop application</a>.</p>
+    </dd>
+</dl>
+</div><!--files (POST)-->
+
+
+<div class="section api-method" id="metadata">
+<h3 class="method-title">/metadata<a class="headerlink" href="#metadata" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>Retrieves file and folder metadata.</dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/metadata/&lt;root&gt;/&lt;path&gt;</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">path</span> The path to the file or folder.</li>
+        </ul>
+    </dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>GET</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">file_limit</span> Default is 10,000 
+(max is 25,000). When listing a folder, the service will not report 
+listings containing more than the specified amount of files and will 
+instead respond with a 406 (Not Acceptable) status response.</li>
+            <li><span class="param">hash</span> Each call to <code>/metadata</code> on a folder will return a <code>hash</code> field, generated by hashing all of the metadata contained in that response. On later calls to <code>/metadata</code>,
+ you should provide that value via this parameter so that if nothing has
+ changed, the response will be a 304 (Not Modified) status code instead 
+of the full, potentially very large, folder listing. This parameter is 
+ignored if the specified path is associated with a file or if <code>list=false</code>. A folder shared between two users will have the same hash for each user.</li>
+            <li><span class="param">list</span> The strings <code>true</code> and <code>false</code> are valid values. <code>true</code> is the default. If <code>true</code>, the folder's metadata will include a <code>contents</code> field with a list of metadata entries for the contents of the folder. If <code>false</code>, the <code>contents</code> field will be omitted.</li>
+            <li><span class="param">include_deleted</span> If this parameter is set to true, then files and folders that have been deleted will also be included in the metadata call.</li>
+            <li><span class="param">rev</span> If you include a particular revision number, then only the metadata for that revision will be returned.</li>
+            <li><span class="param">locale</span> The metadata returned will have its <code>size</code> field translated based on the given locale. For more information see <a href="#param.locale">above</a>.</li>
+
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>The metadata for the file or folder at the given <code>&lt;path&gt;</code>. If <code>&lt;path&gt;</code> represents a folder and the <code>list</code> parameter is <code>true</code>, the metadata will also include a listing of metadata for the folder's contents.</p>
+        <p><strong>Sample JSON return value for a file</strong></p>
+        <pre class="literal-block">{
+    "size": "225.4KB",
+    "rev": "35e97029684fe",
+    "thumb_exists": false,
+    "bytes": 230783,
+    "modified": "Tue, 19 Jul 2011 21:55:38 +0000",
+    "client_mtime": "Mon, 18 Jul 2011 18:04:35 +0000",
+    "path": "/Getting_Started.pdf",
+    "is_dir": false,
+    "icon": "page_white_acrobat",
+    "root": "dropbox",
+    "mime_type": "application/pdf",
+    "revision": 220823
+}
+</pre>
+        <p><strong>Sample JSON return value for a folder when <code>list</code> parameter is set to <code>true</code>.</strong> If <code>list</code> is <code>false</code> the <code>contents</code> key will simply be omitted from the result.</p>
+    <pre class="literal-block">{
+    "size": "0 bytes",
+    "hash": "37eb1ba1849d4b0fb0b28caf7ef3af52",
+    "bytes": 0,
+    "thumb_exists": false,
+    "rev": "714f029684fe",
+    "modified": "Wed, 27 Apr 2011 22:18:51 +0000",
+    "path": "/Public",
+    "is_dir": true,
+    "icon": "folder_public",
+    "root": "dropbox",
+    "contents": [
+        {
+            "size": "0 bytes",
+            "rev": "35c1f029684fe",
+            "thumb_exists": false,
+            "bytes": 0,
+            "modified": "Mon, 18 Jul 2011 20:13:43 +0000",
+            "client_mtime": "Wed, 20 Apr 2011 16:20:19 +0000",
+            "path": "/Public/latest.txt",
+            "is_dir": false,
+            "icon": "page_white_text",
+            "root": "dropbox",
+            "mime_type": "text/plain",
+            "revision": 220191
+        }
+    ],
+    "revision": 29007
+}
+</pre>
+        <p><strong>Return value definitions</strong></p>
+        <table class="api-param-values" id="metadata-details">
+            <tbody><tr><th>field</th><th>description</th></tr>
+            <tr><td><code>size</code></td><td>A human-readable description of the file size (translated by <a href="#param.locale"><code>locale</code></a>).</td>
+            </tr><tr><td><code>bytes</code></td><td>The file size in bytes.</td></tr>
+            <tr><td><code>path</code></td><td>Returns the canonical path to the file or directory.</td></tr>
+            <tr><td><code>is_dir</code></td><td>Whether the given entry is a folder or not.</td></tr>
+            <tr><td><code>is_deleted</code></td><td>Whether the given entry is deleted (only included if deleted files are being returned).</td></tr>
+            <tr><td><code>rev</code></td><td>A unique identifier for the current revision of a file. This field is the same <code>rev</code> as elsewhere in the API and can be used to detect changes and avoid conflicts.</td></tr>
+            <tr><td><code>hash</code></td><td>A folder's <code>hash</code> is useful for indicating changes to the folder's contents in later calls to <a href="#metadata"><code>/metadata</code></a>. This is roughly the folder equivalent to a file's <code>rev</code>.</td></tr>
+            <tr><td><code>thumb_exists</code></td><td>True if the file is an image can be converted to a thumbnail via the <code><a href="#thumbnails">/thumbnails</a></code> call.</td></tr>
+            <tr><td><code>icon</code></td><td>The name of the icon used to illustrate the file type in Dropbox's <a href="https://www.dropbox.com/static/images/dropbox-api-icons.zip">icon library</a>.</td></tr>
+            <tr><td><code>modified</code></td><td>The last time the file was modified on Dropbox, in the standard <a href="#date-format">date format</a> (not included for the root folder). </td></tr>
+            <tr><td><code>client_mtime</code></td><td>For files, this is the modification time set by the desktop client when the file was added to Dropbox, in the standard <a href="#date-format">date format</a>.
+  Since this time is not verified (the Dropbox server stores whatever 
+the desktop client sends up), this should only be used for display 
+purposes (such as sorting) and not, for example, to determine if a file 
+has changed or not.</td></tr>
+            <tr><td><code>root</code></td><td>The root or top-level folder depending on your <a href="https://www.dropbox.com/developers/start/core">access level</a>. All paths returned are relative to this root level. Permitted values are either <code>dropbox</code> or <code>app_folder</code>.</td></tr>
+            <tr><td><code><i>revision</i></code></td><td>A <b>deprecated</b> field that semi-uniquely identifies a file. Use <code>rev</code> instead.</td></tr>
+        </tbody></table>
+        <br>
+        <p><strong>Note:</strong> <code>modified</code>, <code>rev</code>, and <code>revision</code> aren't returned in the metadata for the root/top-level path.</p>
+    </dd>
+
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr>
+                <td>304</td><td>The folder contents have not changed (relies on <code>hash</code> parameter).</td>
+            </tr>
+            <tr><td>406</td><td>There are too many file entries to return.</td></tr>
+
+        </tbody></table>
+    </dd>
+</dl>
+</div><!--/metadata-->
+
+
+<div class="section api-method" id="delta">
+<h3 class="method-title">/delta<a class="headerlink" href="#delta" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>A way of letting you keep up with changes to files and folders in a user's Dropbox.  You can periodically call <code>/delta</code> to get a list of "delta entries", which are instructions on how to update your local state to match the server's state.</dd>
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/delta</pre>
+    </dd>
+
+    <dt>Version</dt><dd>1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">cursor</span> A string that is used 
+to keep track of your current state. On the next call pass in this value
+ to return delta entries that have been recorded since the cursor was 
+returned.</li>
+            <li><span class="param">locale</span> The metadata returned will have its <code>size</code> field translated based on the given locale. For more information see <a href="#param.locale">above</a>.</li>
+
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>A JSON object with four fields
+            </p><ul class="parameters">
+                <li><span class="param">entries</span> A list of "delta entries" (described below).</li>
+                <li><span class="param">reset</span> If <code>true</code>, clear your local state before processing the delta entries. <code>reset</code> is always <code>true</code> on the initial call to <code>/delta</code> (i.e. when no cursor is passed in). Otherwise, it is <code>true</code> in rare situations, such as after server or account maintenance, or if a user deletes their app folder.</li>
+                <li><span class="param">cursor</span> A string that encodes the latest information that has been returned. On the next call to <code>/delta</code>, pass in this value.</li>
+                <li><span class="param">has_more</span> If <code>true</code>, then there are more entries available; you can call <code>/delta</code>
+ again immediately to retrieve those entries.  If 'false', then wait for
+ at least five minutes (preferably longer) before checking again.</li>
+            </ul>
+        <p></p>
+    </dd>
+    <dt>Delta Entries</dt>
+    <dd>
+        Each delta entry is a 2-item list of one of the following forms:
+        <ul class="blue-bullets">
+            <li><code>[&lt;path&gt;, &lt;metadata&gt;]</code> -  
+Indicates that there is a file/folder at the given path. You should add 
+the entry to your local path. The metadata value is the same as what 
+would be returned by the <code>/metadata</code> call, except folder metadata doesn't have <code>hash</code> or <code>contents</code> fields. To correctly process delta entries:
+                <ul class="sub-bullets">
+                    <li>If the new entry includes parent folders that 
+don't yet exist in your local state, create those parent folders in your
+ local state.</li>
+                    <li>If the new entry is a file, replace whatever your local state has at path with the new entry.</li>
+                    <li>If the new entry is a folder, check what your local state has at <code>&lt;path&gt;</code>.  If it's a file, replace it with the new entry.  If it's a folder, apply the new <code>&lt;metadata&gt;</code> to the folder, but do not modify the folder's children.</li>
+                </ul>
+            </li>
+            <li><code>[&lt;path&gt;, null]</code> -  Indicates that 
+there is no file/folder at the given path.  To update your local state 
+to match, anything at path and all its children should be deleted. 
+Deleting a folder in your Dropbox will sometimes send down a single 
+deleted entry for that folder, and sometimes separate entries for the 
+folder and all child paths. If your local state doesn't have anything at
+ path, ignore this entry.</li>
+        </ul>
+        <p></p>
+        <p>Note: Dropbox treats file names in a case-insensitive but case-preserving way.  To facilitate this, the <code>&lt;path&gt;</code> values above are lower-cased versions of the actual path.  The <code>&lt;metadata&gt;</code> value has the original case-preserved path.</p>
+    </dd>
+</dl>
+</div><!--/delta-->
+
+
+<div class="section api-method" id="revisions">
+<h3 class="method-title">/revisions<a class="headerlink" href="#revisions" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd><p>Obtains metadata for the previous revisions of a file.</p>
+    <p>Only revisions up to thirty days old are available (or more if the Dropbox user has <a href="https://www.dropbox.com/help/113">Pack-Rat</a>). You can use the revision number in conjunction with the <a href="#restore"><code>/restore</code></a> call to revert the file to its previous state.</p>
+    </dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/revisions/&lt;root&gt;/&lt;path&gt;</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">path</span> The path to the file.</li>
+        </ul>
+    </dd>
+
+    <dt>Version</dt><dd>1</dd>
+    <dt>Method</dt><dd>GET</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">rev_limit</span> Default is 10. Max 
+is 1,000. When listing a file, the service will not report listings 
+containing more than the amount specified and will instead respond with a
+ 406 (Not Acceptable) status response.</li>
+            <li><span class="param">locale</span> The metadata returned will have its <code>size</code> field translated based on the given locale. For more information see <a href="#param.locale">above</a>.</li>
+
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>
+            A list of all revisions formatted just like file metadata. 
+More information on the returned metadata fields are available <a href="#metadata-details">here</a>.
+
+        </p>
+        <p><strong>Sample JSON return value</strong></p>
+        <pre class="literal-block">[
+{
+    "is_deleted": true,
+    "revision": 4,
+    "rev": "40000000d",
+    "thumb_exists": false,
+    "bytes": 0,
+    "modified": "Wed, 20 Jul 2011 22:41:09 +0000",
+    "path": "/hi2",
+    "is_dir": false,
+    "icon": "page_white",
+    "root": "app_folder",
+    "mime_type": "application/octet-stream",
+    "size": "0 bytes"
+},
+{
+    "revision": 1,
+    "rev": "10000000d",
+    "thumb_exists": false,
+    "bytes": 3,
+    "modified": "Wed, 20 Jul 2011 22:40:43 +0000",
+    "path": "/hi2",
+    "is_dir": false,
+    "icon": "page_white",
+    "root": "app_folder",
+    "mime_type": "application/octet-stream",
+    "size": "3 bytes"
+}
+]
+</pre>
+    </dd>
+
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr>
+                <td>406</td><td>Too many file entries to return.</td>
+            </tr>
+        </tbody></table>
+    </dd>
+</dl>
+</div><!--revisions-->
+
+
+<div class="section api-method" id="restore">
+<h3 class="method-title">/restore<a class="headerlink" href="#restore" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>
+      <p>Restores a file path to a previous revision.</p>
+      <p>Unlike downloading a file at a given revision and then re-uploading it, this call is atomic. It also saves a bunch of bandwidth.</p>
+    </dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd>
+        <pre class="literal-block">https://api.dropbox.com/1/restore/&lt;root&gt;/&lt;path&gt;</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">path</span> The path to the file.</li>
+        </ul>
+
+    </dd>
+
+    <dt>Version</dt><dd>1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+             <li><span class="param">rev</span> <span class="param-info">required</span> The revision of the file to restore. </li>
+            <li><span class="param">locale</span> The metadata returned will have its <code>size</code> field translated based on the given locale. For more information see <a href="#param.locale">above</a>.</li>
+
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>The metadata of the restored file. More information on the returned metadata fields are available <a href="#metadata-details">here</a>.
+</p>
+        <p><strong>Sample JSON response</strong></p>
+        <pre class="literal-block">{
+    "is_deleted": true,
+    "revision": 4,
+    "rev": "40000000d",
+    "thumb_exists": false,
+    "bytes": 0,
+    "modified": "Wed, 20 Jul 2011 22:41:09 +0000",
+    "path": "/hi2",
+    "is_dir": false,
+    "icon": "page_white",
+    "root": "sandbox",
+    "mime_type": "application/octet-stream",
+    "size": "0 bytes"
+}
+</pre>
+    </dd>
+
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr>
+                <td>404</td><td>Unable to find the revision at that path</td>
+            </tr>
+        </tbody></table>
+    </dd>
+
+</dl>
+</div><!--restore-->
+
+
+<div class="section api-method" id="search">
+<h3 class="method-title">/search<a class="headerlink" href="#metadata" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>
+      <p>Returns metadata for all files and folders that match the search query.</p>
+      <p>Searches are limited to the folder path and its sub-folder hierarchy provided in the call.</p>
+    </dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/search/&lt;root&gt;/&lt;path&gt;</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">path</span> The path to the folder you want to search from.</li>
+        </ul>
+    </dd><dt>Versions</dt><dd>0, 1</dd>
+    <dt>Methods</dt><dd>GET, POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">query</span> <span class="param-info">required</span> The search string. Must be at least three characters long.</li>
+            <li><span class="param">file_limit</span> The maximum and default value is 1,000. No more than <code>file_limit</code> search results will be returned.</li>
+            <li><span class="param">include_deleted</span> If this parameter is set to true, then files and folders that have been deleted will also be included in the search.</li>
+            <li><span class="param">locale</span> The metadata returned will have its <code>size</code> field translated based on the given locale. For more information see <a href="#param.locale">above</a>.</li>
+
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>List of metadata entries for any matching files and folders. More information on the returned metadata fields are available <a href="#metadata-details">here</a>.
+</p>
+        <p><strong>Sample JSON return value for a search for <samp>.txt</samp> in Dropbox/Public folder</strong></p>
+        <pre class="literal-block">[
+    {
+        "size": "0 bytes",
+        "rev": "35c1f029684fe",
+        "thumb_exists": false,
+        "bytes": 0,
+        "modified": "Mon, 18 Jul 2011 20:13:43 +0000",
+        "path": "/Public/latest.txt",
+        "is_dir": false,
+        "icon": "page_white_text",
+        "root": "dropbox",
+        "mime_type": "text/plain",
+        "revision": 220191
+    }
+]
+</pre>
+    </dd>
+</dl>
+</div> <!-- /search -->
+
+
+<div class="section api-method" id="shares">
+<h3 class="method-title">/shares<a class="headerlink" href="#shares" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>
+      <p>Creates and returns a <a href="https://www.dropbox.com/help/167">Dropbox link</a> to files or folders users can use to view a preview of the file in a web browser.</p>
+      <p><strong>Note</strong>: Links created after April 23rd, 2012 no longer expire after thirty days.</p>
+    </dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/shares/&lt;root&gt;/&lt;path&gt;</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">path</span> The path to the file or folder you want to link to.</li>
+        </ul>
+    </dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+          <li><span class="param">locale</span> Use to specify language settings for user error messages and other language specific text. See the <a href="#param.locale">notes above</a> for more information about supported locales.</li>
+
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>A Dropbox link to the given path. The link can be used 
+publicly and directs to a preview page of the file. For compatibility 
+reasons, it returns the link's expiration date in Dropbox's usual <a href="#date-format">date format</a>. All links are currently set to expire far enough in the future so that expiration is effectively not an issue.</p>
+        <p><strong>Sample JSON return value for a file</strong></p>
+        <pre class="literal-block">{
+    "url": "http://db.tt/APqhX1",
+    "expires": "Tue, 01 Jan 2030 00:00:00 +0000"
+}</pre>
+    </dd>
+</dl>
+</div><!-- /shares -->
+
+
+<div class="section api-method" id="media">
+<h3 class="method-title">/media<a class="headerlink" href="#thumbnails" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>
+      <p>Returns a link directly to a file.</p>
+      <p>Similar to <a href="#shares"><code>/shares</code></a>. The 
+difference is that this bypasses the Dropbox webserver, used to provide a
+ preview of the file, so that you can effectively stream the contents of
+ your media.</p>
+    </dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/media/&lt;root&gt;/&lt;path&gt;</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">path</span> The path to the media file you want a direct link to.</li>
+        </ul>
+    </dd>
+
+    <dt>Version</dt><dd>1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+          <li><span class="param">locale</span> Use to specify language settings for user error messages and other language specific text. See the <a href="#param.locale">notes above</a> for more information about supported locales.</li>
+
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>A url that serves the media directly. Also returns the link's expiration date in Dropbox's usual <a href="#date-format">date format</a>.</p>
+        <p><strong>Sample JSON return value for a file</strong></p>
+        <pre class="literal-block">{
+    'url': 'http://www.dropbox.com/s/m/a2mbDa2',
+    'expires': 'Fri, 16 Sep 2011 01:01:25 +0000'
+}</pre>
+    </dd>
+
+    <dt>Notes</dt>
+    <dd>The <code>/media</code> link expires after four hours, allotting enough time to stream files, but not enough to leave a connection open indefinitely.</dd>
+</dl>
+</div><!--media-->
+
+
+<div class="section api-method" id="copy_ref">
+<h3 class="method-title">/copy_ref<a class="headerlink" href="#copy_ref" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>
+      <p>Creates and returns a copy_ref to a file. This reference string
+ can be used to copy that file to another user's Dropbox by passing it 
+in as the <code>from_copy_ref</code> parameter on <a href="#fileops-copy">/fileops/copy</a>.</p>
+    </dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/copy_ref/&lt;root&gt;/&lt;path&gt;</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">path</span> The path to the file you want a copy_ref to refer to.</li>
+        </ul>
+    </dd>
+
+    <dt>Versions</dt><dd>1</dd>
+    <dt>Method</dt><dd>GET</dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>A copy_ref to the specified file. For compatibility reasons, it returns the link's expiration date in Dropbox's usual <a href="#date-format">date format</a>. All links are currently set to expire far enough in the future so that expiration is effectively not an issue.</p>
+        <p><strong>Sample JSON return value for a file</strong></p>
+        <pre class="literal-block">{
+    "copy_ref": "z1X6ATl6aWtzOGq0c3g5Ng",
+    "expires": "Fri, 31 Jan 2042 21:01:05 +0000"
+}</pre>
+    </dd>
+</dl>
+</div><!--/copy_ref_beta-->
+
+
+<div class="section api-method" id="thumbnails">
+<h3 class="method-title">/thumbnails<a class="headerlink" href="#thumbnails" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>Gets a thumbnail for an image. Note that this call goes to the <b>api-content</b> server.</dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://<b>api-content</b>.dropbox.com/1/thumbnails/&lt;root&gt;/&lt;path&gt;</pre>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">path</span> The path to the image file you want to thumbnail.</li>
+        </ul>
+    </dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>GET</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">format</span> <code>jpeg</code> (default) or <code>png</code>. For images that are photos, <code>jpeg</code> should be preferred, while <code>png</code> is better for screenshots and digital art.</li>
+            <li>
+                <p><span class="param">size</span> One of the following values (default <code>small</code>):
+                </p><table class="api-param-values">
+                    <tbody><tr><th>value</th><th>dimensions (px)</th></tr>
+                    <tr><td><code>small</code></td><td>32x32</td></tr>
+                    <tr><td><code>medium</code></td><td>64x64</td></tr>
+                    <tr><td><code>large</code></td><td>128x128</td></tr>
+                    <tr><td><code>s</code></td><td>64x64</td></tr>
+                    <tr><td><code>m</code></td><td>128x128</td></tr>
+                    <tr><td><code>l</code></td><td>640x480</td></tr>
+                    <tr><td><code>xl</code></td><td>1024x768</td></tr>
+                </tbody></table>
+                <p></p>
+            </li>
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>A thumbnail of the specified image's contents.</p>
+    </dd>
+    <dd>
+        <p>The HTTP response contains the <a href="#metadata-details">content metadata</a> in JSON format within an <code>x-dropbox-metadata</code> header.</p>
+    </dd>
+
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr><td>404</td><td>The file path wasn't found or the file extension doesn't allow conversion to a thumbnail.</td></tr>
+            <tr><td>415</td><td>The image is invalid and cannot be converted to a thumbnail.</td></tr>
+        </tbody></table>
+    </dd>
+
+    <dt>Notes</dt>
+    <dd>
+        <p>This method currently supports files with the following file extensions: "jpg", "jpeg", "png", "tiff", "tif", "gif", and "bmp".
+        </p><p>Photos that are larger than 20MB in size will not be converted to a thumbnail.</p>
+    </dd>
+
+</dl>
+</div><!--thumbnails-->
+
+</div><!-- files-and-metadata -->
+
+
+<div class="section" id="fileops">
+<h2>File operations<a class="headerlink" href="#fileops" title="Permalink to this headline"></a></h2>
+<p>The various <code>fileops</code> calls provide the standard file operations. Files and folders can be moved, copied, or deleted. Folders can be created.</p>
+</div><!-- /fileops -->
+
+
+<div class="section api-method" id="fileops-copy">
+<h3 class="method-title-first">/fileops/copy<a class="headerlink" href="#fileops-copy" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>Copies a file or folder to a new location.</dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/fileops/copy</pre></dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+<span class="param-info">required</span>
+The root relative to which <code>from_path</code> and <code>to_path</code> are specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">from_path</span> Specifies the file or folder to be copied from relative to <code>root</code>.</li>
+            <li><span class="param">to_path</span> <span class="param-info">required</span> Specifies the destination path, <em>including the new name for the file or folder</em>, relative to <code>root</code>.</li>
+            <li><span class="param">locale</span> The metadata returned will have its <code>size</code> field translated based on the given locale. For more information see <a href="#param.locale">above</a>.</li>
+
+            <li><span class="param">from_copy_ref</span> Specifies a copy_ref generated from a previous <a href="#copy_ref">/copy_ref</a> call. Must be used instead of the <code>from_path</code> parameter.</li>
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>Metadata for the copy of the file or folder. More information on the returned metadata fields are available <a href="#metadata-details">here</a>.
+</p>
+        <p><strong>Sample JSON response</strong></p>
+<pre class="last literal-block">{
+    "size": "15 bytes",
+    "rev": "1f0a503351f",
+    "thumb_exists": false,
+    "bytes": 15,
+    "modified": "Wed, 10 Aug 2011 18:21:29 +0000",
+    "path": "/test1.txt",
+    "is_dir": false,
+    "icon": "page_white_text",
+    "root": "dropbox",
+    "mime_type": "text/plain",
+    "revision": 496342
+}
+</pre>
+    </dd>
+
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr><td>403</td><td>An invalid copy operation was 
+attempted (e.g. there is already a file at the given destination, or 
+copying a shared folder into a shared folder).</td></tr>
+            <tr><td>404</td><td>The source file wasn't found at the specified path.</td></tr>
+            <tr><td>406</td><td>Too many files would be involved in the 
+operation for it to complete successfully. The limit is currently 10,000
+ files and folders.</td></tr>
+
+        </tbody></table>
+    </dd>
+</dl>
+</div><!--fileops-copy-->
+
+
+<div class="section api-method" id="fileops-create-folder">
+<h3 class="method-title">/fileops/create_folder<a class="headerlink" href="#fileops-create-folder" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>Creates a folder.</dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/fileops/create_folder</pre></dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+<span class="param-info">required</span>
+The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">path</span> <span class="param-info">required</span> The path to the new folder to create relative to <code>root</code>.</li>
+            <li><span class="param">locale</span> The metadata returned will have its <code>size</code> field translated based on the given locale. For more information see <a href="#param.locale">above</a>.</li>
+
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>
+            Metadata for the new folder. More information on the returned metadata fields are available <a href="#metadata-details">here</a>.
+
+        </p><p><strong>Sample JSON response</strong></p>
+<pre class="last literal-block">{
+    "size": "0 bytes",
+    "rev": "1f477dd351f",
+    "thumb_exists": false,
+    "bytes": 0,
+    "modified": "Wed, 10 Aug 2011 18:21:30 +0000",
+    "path": "/new_folder",
+    "is_dir": true,
+    "icon": "folder",
+    "root": "dropbox",
+    "revision": 5023410
+}
+</pre>
+        <p></p>
+    </dd>
+
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr><td>403</td><td>There is already a folder at the given destination.</td></tr>
+        </tbody></table>
+    </dd>
+</dl>
+</div><!--fileops-create_folder-->
+
+
+<div class="section api-method" id="fileops-delete">
+<h3 class="method-title">/fileops/delete<a class="headerlink" href="#fileops-delete" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>Deletes a file or folder.</dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/fileops/delete</pre></dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+<span class="param-info">required</span>
+The root relative to which <code>path</code> is specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">path</span> <span class="param-info">required</span> The path to the file or folder to be deleted.</li>
+            <li><span class="param">locale</span> The metadata returned will have its <code>size</code> field translated based on the given locale. For more information see <a href="#param.locale">above</a>.</li>
+
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>
+            Metadata for the deleted file or folder. More information on the returned metadata fields are available <a href="#metadata-details">here</a>.
+
+        </p><p><strong>Sample JSON response</strong></p>
+<pre class="last literal-block">{
+    "size": "0 bytes",
+    "is_deleted": true,
+    "bytes": 0,
+    "thumb_exists": false,
+    "rev": "1f33043551f",
+    "modified": "Wed, 10 Aug 2011 18:21:30 +0000",
+    "path": "/test .txt",
+    "is_dir": false,
+    "icon": "page_white_text",
+    "root": "dropbox",
+    "mime_type": "text/plain",
+    "revision": 492341
+}
+</pre>
+        <p></p>
+    </dd>
+
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr><td>404</td><td>No file wasn't found at the specified path.</td></tr>
+            <tr><td>406</td><td>Too many files would be involved in the 
+operation for it to complete successfully. The limit is currently 10,000
+ files and folders.</td></tr>
+
+        </tbody></table>
+    </dd>
+
+</dl>
+</div><!--fileops-delete-->
+
+
+<div class="section api-method" id="fileops-move">
+<h3 class="method-title">/fileops/move<a class="headerlink" href="#fileops-move" title="Permalink to this headline"></a></h3>
+<dl>
+    <dt>Description</dt>
+    <dd>Moves a file or folder to a new location.</dd>
+
+    <dt class="url-label">URL Structure</dt>
+    <dd><pre class="literal-block">https://api.dropbox.com/1/fileops/move</pre></dd>
+
+    <dt>Versions</dt><dd>0, 1</dd>
+    <dt>Method</dt><dd>POST</dd>
+
+    <dt>Parameters</dt>
+    <dd>
+        <ul class="parameters">
+            <li><span class="param">root</span>
+<span class="param-info">required</span>
+The root relative to which <code>from_path</code> and <code>to_path</code> are specified. Valid values are <code>sandbox</code> and <code>dropbox</code>.</li>
+
+            <li><span class="param">from_path</span> <span class="param-info">required</span> Specifies the file or folder to be moved from relative to <code>root</code>.</li>
+            <li><span class="param">to_path</span> <span class="param-info">required</span> Specifies the destination path, <em>including the new name for the file or folder</em>, relative to <code>root</code>.</li>
+            <li><span class="param">locale</span> The metadata returned will have its <code>size</code> field translated based on the given locale. For more information see <a href="#param.locale">above</a>.</li>
+
+        </ul>
+    </dd>
+
+    <dt>Returns</dt>
+    <dd>
+        <p>Metadata for the moved file or folder. More information on the returned metadata fields are available <a href="#metadata-details">here</a>.
+</p>
+        <p><strong>Sample JSON response</strong></p>
+<pre class="last literal-block">{
+    "size": "15 bytes",
+    "rev": "1e0a503351f",
+    "thumb_exists": false,
+    "bytes": 15,
+    "modified": "Wed, 10 Aug 2011 18:21:29 +0000",
+    "path": "/test2.txt",
+    "is_dir": false,
+    "icon": "page_white_text",
+    "root": "dropbox",
+    "mime_type": "text/plain",
+    "revision": 496342
+}
+</pre>
+    </dd>
+
+    <dt>Errors</dt>
+    <dd>
+        <table class="errors-table">
+            <tbody><tr><td>403</td><td>An invalid move operation was 
+attempted (e.g. there is already a file at the given destination, or 
+moving a shared folder into a shared folder).</td></tr>
+            <tr><td>404</td><td>The source file wasn't found at the specified path.</td></tr>
+            <tr><td>406</td><td>Too many files would be involved in the 
+operation for it to complete successfully. The limit is currently 10,000
+ files and folders.</td></tr>
+
+        </tbody></table>
+    </dd>
+</dl>
+</div><!--fileops-move-->
+
+
+</div><!-- fileops -->
+
+<!--div class="section" id="beta">
+<h2>Beta features<a class="headerlink" href="#beta" title="Permalink to this headline"></a></h2>
+<p>The calls listed here are not yet ready for release and can run the gamut of functionality. They're released to the public a little earlier than usual to gather feedback, test usage, and general tinkering. These methods are subject to change and, as such, should not be used in production. Feedback is welcome in the Dropbox <a href="http://forums.dropbox.com/forum.php?id=5">forums</a>.</p>
+</div--><!-- /beta -->
+
+
+
+
+
+
+</div><!-- /api-specification -->
+<br class="clear">
+</span>
+<script type="text/javascript">
+
+//This addresses a strange fixed position rendering error in Chrome.
+//"Trick" the browser into redrawing the TOC by twiddling the background color slightly every click
+$$('#toc>ul>li').each(function(t) { t.observe('click', function() { redraw_toc()}) });
+
+//If when the page loads it immediate jumps to an anchor, chrome/safari sometimes does not position this TOC correctly.
+//This forces the position to be redrawn. 200ms seems to work.
+document.observe("dom:loaded", function() { setTimeout(function() { redraw_toc_position()} ,200)});
+
+document.observe("scroll", function() {
+  // Fix the position of the api methods table of contents to the
+  // top of the viewport when it's scrolled offscreen
+  var toc = $("toc");
+  var footer = $("page-full-footer");
+  // if the toc is scrolled off, set it's position to fixed on the left
+  if (document.body.cumulativeScrollOffset().top >= 630 && footer.viewportOffset().top > 700) {
+    toc.addClassName("toc-fixed");
+    toc.style.marginTop = '';
+  // if the footer is near the toc, make sure the toc doesn't overlap the footer
+  } else if (footer.viewportOffset().top < 700) {
+    toc.removeClassName("toc-fixed");
+    toc.style.marginTop = (document.viewport.getScrollOffsets().top - 163 - (700 - footer.viewportOffset().top)) + 'px';
+  } else {
+    toc.removeClassName("toc-fixed");
+    toc.style.marginTop = '';
+  }
+
+  // Highlight the current api method that's visible in the viewport
+  var headers = $$('div.api-method');
+  var i = 0;
+  var selectedHeader = false;
+  var viewport_height = document.viewport.getHeight();
+
+  // If the first api method is offscreen, make sure nothing is highlighted
+  if (headers[0].viewportOffset().top > viewport_height / 2) {
+    toc_remove_highlight();
+  } else if (headers[headers.length-1].viewportOffset().top < 0 ) {
+    toc_highlight(headers[headers.length-1].id);
+  }
+  else {
+    for (i; i < headers.length; i++) {
+      var header_top = headers[i].viewportOffset().top;
+      if (header_top > -20 && header_top <= viewport_height / 2) {
+        toc_highlight(headers[i].id);
+        selectedHeader = true;
+        break;
+      } else if (!selectedHeader && header_top > 0) {
+        toc_highlight(headers[i - 1].id);
+        selectedHeader = true;
+        break;
+      }
+    }
+  }
+});
+
+var prevTocLink;
+var toc_highlight = function(name) {
+  toc_remove_highlight();
+  if ($('toc-' + name)) $('toc-' + name).addClassName('toc-selected');
+  prevTocLink = $('toc-' + name);
+};
+
+var toc_remove_highlight = function() {
+  if (prevTocLink) prevTocLink.removeClassName('toc-selected');
+};
+
+var redraw_toc_position = function () {
+    $('toc').style.padding = "21px 0px 0px 0px";
+    setTimeout(function() { $('toc').style.padding = "20px 0px 0px 0px";}, 1);
+};
+
+var redraw_toc = function () {
+  $('toc').style.background = "#FFFFFE";
+  setTimeout(function() { $('toc').style.background = "";  }, 1)
+};
+
+</script>
+
+</div>
+
+</div><div id="page-full-footer"><div class="footer-col"><ul><li class="header">Dropbox</li><li><a href="https://www.dropbox.com/install">Install</a></li><li><a href="https://www.dropbox.com/anywhere">Mobile</a></li><li><a href="https://www.dropbox.com/plans">Pricing</a></li><li><a href="https://www.dropbox.com/teams">Teams</a></li><li><a href="https://www.dropbox.com/tour">Tour</a></li></ul><span style="color: white;">PYXL</span></div><div class="footer-col"><ul><li class="header">Community</li><li><a href="https://www.dropbox.com/referrals" onmouseup="javascript: MCLog.log('referrals_via_footer');">Referrals</a></li><li><a href="http://twitter.com/dropbox" target="_blank">Twitter</a></li><li><a href="http://facebook.com/Dropbox" target="_blank">Facebook</a></li><li><a href="https://www.dropbox.com/developers">Developers</a></li></ul></div><div class="footer-col"><ul><li class="header">About us</li><li><a href="http://blog.dropbox.com/">Dropbox Blog</a></li><li><a href="https://www.dropbox.com/about">Our team</a></li><li><a href="https://www.dropbox.com/news">News</a></li><li><a href="https://www.dropbox.com/jobs">Jobs</a></li></ul></div><div class="footer-col"><ul><li class="header">Support</li><li><a href="https://www.dropbox.com/help">Help Center</a></li><li><a href="https://www.dropbox.com/terms">Privacy &amp; Terms</a></li><li><a href="https://www.dropbox.com/dmca">Copyright</a></li><li><a href="https://www.dropbox.com/contact">Contact us</a></li></ul></div><div id="locale-container" class="ui-button"><span id="locale-link" class="link-span"><img src="dropbox_api_files/icon_spacer.gif" style="" class="sprite s_world_grey" data-src="">&nbsp;<a>English</a>&nbsp;<img src="dropbox_api_files/icon_spacer.gif" style="" class="sprite s_sort-uptick-off" data-src=""></span><div id="locale-menu" class="sub-nav chat-bubble-bottom"><ul><li><a data-locale="en" class="locale-option">English</a></li><li><a data-locale="es" class="locale-option">Español</a></li><li><a data-locale="fr" class="locale-option">Français</a></li><li><a data-locale="de" class="locale-option">Deutsch</a></li><li><a data-locale="ja" class="locale-option">日本語</a></li><li><a data-locale="ko" class="locale-option">한국어</a></li></ul><div class="chat-bubble-arrow-border"></div><div class="chat-bubble-arrow"></div></div></div><div class="clear"></div></div><noscript><p class="center">The Dropbox website requires JavaScript.</p></noscript></div><div style="position: absolute; top: 0; left: 0; font-family: Courier" id="ieconsole"></div><div style="position:absolute; top:-10000px;width:0px; height:0px; left: 0;" id="FB_HiddenContainer"></div><div style="display:none;" id="notice-container" class="clearfix"></div><script>
+
+        document.observe("dom:loaded", function() {
+           TranslationSuggest.attach_autocomplete();
+           Util.focus('')
+        });
+        
+TranslationSuggest.update_i18n_messages({})
+$('emsnippet-d808008bb72a2fd2').innerHTML = 'cs\x20zm'.em_snippet(20, 0.750).escapeHTML();
+$('emsnippet-97ac4e6e12e53783').innerHTML = 'cosminzamfir\x40yahoo\x2ecom'.em_snippet(22, 0.250).escapeHTML();</script></body></html>
